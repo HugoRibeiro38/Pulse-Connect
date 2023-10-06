@@ -1,0 +1,24 @@
+variables:
+  GIT_SSL_NO_VERIFY: "1"
+
+image: gradle:alpine
+
+assemble_job: # Assembles the project without generating anything
+  stage: build
+  script: ./gradlew --build-cache assemble
+  except:
+    - main
+
+build_job: # Assembles the project generating jar, a zip file of the source and a zip with pmd, javadoc jacoco and junit reports
+  stage: build
+  script: ./gradlew --build-cache build
+  artifacts:
+    paths:
+      - build/artifacts/
+  only:
+    - main
+
+test_job: # Executes testing of the project
+  stage: test
+  script: ./gradlew test
+
