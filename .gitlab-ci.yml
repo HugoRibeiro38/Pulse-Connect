@@ -1,24 +1,29 @@
 variables:
   GIT_SSL_NO_VERIFY: "1"
 
-image: gradle:alpine
+stages:
+  - build
+  - test
 
 assemble_job: # Assembles the project without generating anything
   stage: build
-  script: ./gradlew --build-cache assemble
+  script:
+    - dotnet build
   except:
     - main
 
 build_job: # Assembles the project generating jar, a zip file of the source and a zip with pmd, javadoc jacoco and junit reports
   stage: build
-  script: ./gradlew --build-cache build
+  script:
+    - dotnet build
+    - dotnet publish -c Release -o ./artifacts
   artifacts:
     paths:
-      - build/artifacts/
+      - artifacts/
   only:
     - main
 
 test_job: # Executes testing of the project
   stage: test
-  script: ./gradlew test
-
+  script:
+    - dotnet test
