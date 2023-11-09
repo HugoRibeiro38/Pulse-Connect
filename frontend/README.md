@@ -26,7 +26,15 @@ Welcome to Pulse Connect, the ultimate platform for seamless and discreet connec
 
 ## Technologies
 
-Pulse Connect Front-end is built using the following technologies:
+Pulse Connect back-end is built using the following technologies:
+
+-   [C#](https://en.wikipedia.org/wiki/C_Sharp_(programming_language)): C Sharp or C# is a statically typed, object-oriented programming language developed by Microsoft. It is commonly used for building robust and scalable applications on the .NET framework.
+-   [.NET Core 7](https://dotnet.microsoft.com/): Framework for building modern, high-performance applications. It provides a runtime, libraries, and tools for building various types of applications, including web applications, microservices, and more.
+-   [MySQL](https://www.mysql.com): Relational database management system that is commonly used for storing and managing structured data in applications. It offers features like data integrity, security, and scalability.
+-   [MongoDB](https://www.mongodb.com): NoSQL database that is used for storing unstructured or semi-structured data. It is known for its flexibility and scalability, making it suitable for a wide range of applications.
+-   [Docker](https://www.docker.com): Platform for developing, shipping, and running applications in containers. It allows for easy deployment and scaling of applications in a consistent and isolated environment.
+
+Pulse Connect front-end is built using the following technologies:
 
 -   [TypeScript](https://www.typescriptlang.org): TypeScript is a statically typed superset of JavaScript, it provides type checking and other features to help developers write more robust and maintainable code.
 -   [Next.js](https://nextjs.org): A popular React framework for building server-side rendered and static websites.
@@ -36,11 +44,11 @@ Pulse Connect Front-end is built using the following technologies:
 
 ## Deployment
 
-Pulse Connect is deployed on [Vercel](https://vercel.com/), a cloud platform for static sites and serverless functions. Vercel provides a seamless deployment process, ensuring that your application is readily available and scalable to handle any number of users.
+Pulse Connect front-end is deployed on [Vercel](https://vercel.com/), a cloud platform for static sites and serverless functions. Vercel provides a seamless deployment process, ensuring that your application is readily available and scalable to handle any number of users.
 
 ## Getting Started
 
-To get started with Pulse Connect Front-end on your local machine, follow these steps:
+To get started with Pulse Connect front-end on your local machine, follow these steps:
 
 1. Clone the repository:
 
@@ -61,7 +69,7 @@ pnpm install
 cp .env
 ```
 
-4. Edit the .env file and provide the necessary configuration values.
+4. Edit the .env file and provide the necessary configuration values(look into .env.example).
 
 ```bash
 pnpm run dev
