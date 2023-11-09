@@ -30,8 +30,8 @@ Pulse Connect back-end is built using the following technologies:
 
 -   [C#](https://en.wikipedia.org/wiki/C_Sharp_(programming_language)): C Sharp or C# is a statically typed, object-oriented programming language developed by Microsoft. It is commonly used for building robust and scalable applications on the .NET framework.
 -   [.NET Core 7](https://dotnet.microsoft.com/): Framework for building modern, high-performance applications. It provides a runtime, libraries, and tools for building various types of applications, including web applications, microservices, and more.
--   [MySQL](https://www.mysql.com): Relational database management system that is commonly used for storing and managing structured data in applications. It offers features like data integrity, security, and scalability.
--   [MongoDB](https://www.mongodb.com): NoSQL database that is used for storing unstructured or semi-structured data. It is known for its flexibility and scalability, making it suitable for a wide range of applications.
+-   [MySQL](https://www.mysql.com): Relational database management system that is commonly used for storing and managing structured data in applications.
+-   [MongoDB](https://www.mongodb.com): NoSQL database that is used for storing unstructured or semi-structured data.
 -   [Docker](https://www.docker.com): Platform for developing, shipping, and running applications in containers. It allows for easy deployment and scaling of applications in a consistent and isolated environment.
 
 Pulse Connect front-end is built using the following technologies:
