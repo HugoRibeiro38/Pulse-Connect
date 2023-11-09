@@ -100,6 +100,6 @@ We welcome contributions to Pulse Connect! Feel free to contribute to this proje
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)
 
 **ESTG - Escola Superior de Tecnologia e Gestão | Politécnico do Porto**
