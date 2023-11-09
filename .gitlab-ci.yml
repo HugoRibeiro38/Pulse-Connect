@@ -15,8 +15,8 @@ assemble_job: # Assembles the project without generating anything
 build_job: # Assembles the project generating jar, a zip file of the source and a zip with pmd, javadoc jacoco and junit reports
   stage: build
   script:
-    - docker run --rm -v $(pwd):/app -w /app mcr.microsoft.com/dotnet/sdk:latest dotnet build
-    - docker run --rm -v $(pwd):/app -w /app mcr.microsoft.com/dotnet/sdk:latest dotnet publish -c Release -o ./artifacts
+    - dotnet build
+    - dotnet publish -c Release -o ./artifacts
   artifacts:
     paths:
       - artifacts/
@@ -26,5 +26,4 @@ build_job: # Assembles the project generating jar, a zip file of the source and 
 test_job: # Executes testing of the project
   stage: test
   script:
-    - docker run --rm -v $(pwd):/app -w /app mcr.microsoft.com/dotnet/sdk:latest dotnet test
-
+    - dotnet test
