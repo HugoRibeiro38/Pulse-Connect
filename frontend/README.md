@@ -1,4 +1,4 @@
-<img src="others/logo/SVG/Logo%20Transparent.svg" width="128" height="128" alt="Logo for Pulse Connect" >
+<img src="others/logo/SVG/Logo%20Transparent.svg" alt="Logo for Pulse Connect" width="128" height="128">
 
 # Pulse Connect
 
