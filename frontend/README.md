@@ -1,10 +1,6 @@
-<p align="center">
-  <img src="others/logo/SVG/Logo%20Transparent.svg" width="128" height="128" alt="Logo for Pulse Connect" >
-</p>
+<img src="others/logo/SVG/Logo%20Transparent.svg" width="128" height="128" alt="Logo for Pulse Connect" >
 
-<h1 align="center">
-  Pulse Connect
-</h1>
+# Pulse Connect
 
 ## Index
 
