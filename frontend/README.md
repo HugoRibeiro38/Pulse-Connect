@@ -1,22 +1,18 @@
-<p align="center">
-  <img src="https://github.com/WallQ/Pulse-Connect/blob/dev/others/logo/SVG/Logo%20Transparent.svg" width="128" height="128" alt="Logo for Pulse Connect" >
-</p>
+![Logo for Pulse Connect](others/logo/SVG/Logo%20Transparent.svg)
 
-<h1 align="center">
-  Pulse Connect
-</h1>
+# Pulse Connect
 
 ## Index
 
--   [Description](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/tree/master/front-end#description)
--   [Technologies](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/tree/master/front-end#technologies)
--   [Deployment](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/tree/master/front-end#deployment)
--   [Getting Started](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/tree/master/front-end#getting-started)
--   [Support](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/tree/master/front-end#support)
--   [Roadmap](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/tree/master/front-end#roadmap)
--   [Contributors](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/tree/master/front-end#contributors)
--   [Authors](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/tree/master/front-end#authors)
--   [License](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/tree/master/front-end#license)
+-   [Description](#description)
+-   [Technologies](#technologies)
+-   [Deployment](#deployment)
+-   [Getting Started](#getting-started)
+-   [Support](#support)
+-   [Roadmap](#roadmap)
+-   [Contributors](#contributors)
+-   [Authors](#authors)
+-   [License](#license)
 
 ## Description
 
@@ -55,7 +51,7 @@ git clone <repository-url>
 2. Install the required dependencies:
 
 ```bash
-cd pulse-connect
+cd lds-2023-2024/frontend
 pnpm install
 ```
 
@@ -92,7 +88,7 @@ Please check back regularly for updates on our progress and to discover the late
 
 ## Contributors
 
-We welcome contributions to Pulse Connect! Feel free to contribute to this project but please read the [Contributing Guidelines](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/blob/master/CONTRIBUTING.md) before opening an issue or pull request so you understand the branching strategy and local development environment.
+We welcome contributions to Pulse Connect! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or pull request so you understand the branching strategy and local development environment.
 
 ## Authors
 
@@ -104,6 +100,6 @@ We welcome contributions to Pulse Connect! Feel free to contribute to this proje
 
 ## License
 
-[MIT](https://gitlab.estg.ipp.pt/lds-2022-2023/lds-2023-2024/-/blob/master/LICENSE.md)
+[MIT](LICENSE.md)
 
 **ESTG - Escola Superior de Tecnologia e Gestão | Politécnico do Porto**
