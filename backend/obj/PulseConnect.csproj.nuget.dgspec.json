@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\PulseConnect\\PulseConnect.csproj": {}
+    "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\PulseConnect.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\PulseConnect\\PulseConnect.csproj": {
+    "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\PulseConnect.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\PulseConnect\\PulseConnect.csproj",
+        "projectUniqueName": "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\PulseConnect.csproj",
         "projectName": "PulseConnect",
-        "projectPath": "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\PulseConnect\\PulseConnect.csproj",
-        "packagesPath": "C:\\Users\\ribei\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\PulseConnect\\obj\\",
+        "projectPath": "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\PulseConnect.csproj",
+        "packagesPath": "C:\\Users\\MarcioRibeiro\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ribei\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MarcioRibeiro\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +44,20 @@
               "target": "Package",
               "version": "[7.0.12, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.19.4, )"
@@ -72,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
