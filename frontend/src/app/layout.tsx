@@ -4,6 +4,7 @@ import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import { type Metadata } from 'next';
 
+import { Providers } from '@/components/Providers';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
@@ -105,8 +106,10 @@ const RootLayout: React.FunctionComponent<RootLayoutProps> = ({
 		<html lang='en'>
 			<body
 				className={`h-screen font-sans ${GeistSans.variable} ${GeistMono.variable} flex w-full flex-col`}>
-				{children}
-				<Toaster />
+				<Providers>
+					{children}
+					<Toaster />
+				</Providers>
 			</body>
 		</html>
 	);
