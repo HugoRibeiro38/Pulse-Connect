@@ -1,11 +1,18 @@
 import { type Metadata, type NextPage } from 'next/types';
+import { Fragment } from 'react';
+
+import { Title } from '@/components/Title';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Home',
 };
 
 const HomePage: NextPage = (): React.ReactNode => {
-	return <h1 className='text-xl font-semibold'>Home Page</h1>;
+	return (
+		<Fragment>
+			<Title title='Home Page' />
+		</Fragment>
+	);
 };
 
 export default HomePage;

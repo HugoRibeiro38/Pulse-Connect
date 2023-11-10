@@ -42,7 +42,7 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 					className='dark:nightMode h-8 w-auto'
 				/>
 			</Link>
-			<div className='flex w-full flex-row items-center justify-center space-x-2'>
+			<div className='flex w-full flex-row items-center justify-center gap-x-2'>
 				<Input
 					type='text'
 					placeholder='Search'
@@ -60,7 +60,7 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 			<DropdownMenu>
 				<DropdownMenuTrigger
 					asChild
-					className='flex cursor-pointer flex-row items-center justify-between space-x-2 whitespace-nowrap rounded-md p-1.5  align-middle ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'>
+					className='flex cursor-pointer flex-row items-center justify-between space-x-2 whitespace-nowrap rounded-md p-2  align-middle ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'>
 					<div>
 						<Avatar>
 							<AvatarImage

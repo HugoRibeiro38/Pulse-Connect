@@ -13,19 +13,19 @@ export const ROUTES = {
 	SETTINGS: {
 		ROOT: '/settings',
 		GENERAL: {
-			ACCOUNT: '/general/account',
-			NOTIFICATIONS: '/general/notifications',
-			APPEARANCE: '/general/appearance',
-			LANGUAGE: '/general/language',
+			ACCOUNT: '/settings/general/account',
+			NOTIFICATIONS: '/settings/general/notifications',
+			APPEARANCE: '/settings/general/appearance',
+			LANGUAGE: '/settings/general/language',
 		},
 		ACCOUNT: {
-			INTEGRATIONS: '/account/integrations',
-			EMAIL: '/account/email',
-			PASSWORD: '/account/password',
-			DISABLE: '/account/disable',
+			INTEGRATIONS: '/settings/account/integrations',
+			EMAIL: '/settings/account/email',
+			PASSWORD: '/settings/account/password',
+			DISABLE: '/settings/account/disable',
 		},
 		OTHERS: {
-			HELP: '/others/help',
+			HELP: '/settings/others/help',
 		},
 	},
 	AUTH: {
