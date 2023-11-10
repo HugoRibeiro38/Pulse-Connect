@@ -1,71 +1,12 @@
-variables:
-  GIT_SSL_NO_VERIFY: '1'
-
-stages:
-  - build
-  - test
-  - release
-  - deploy
-
-before_script:
-  - echo "Starting CI/CD"
-
-build_job:
-  image: mcr.microsoft.com/dotnet/sdk:latest
-  tags: 
-    - LDS
-  stage: build
-  only:
-    - main
-  script:
-    - echo "Running the build job."
-    - cd backend
-    - dotnet build --no-restore
-    - dotnet publish -c Release -o ./artifacts
-  artifacts:
-    paths:
-      - artifacts/
-
 test_job:
   image: mcr.microsoft.com/dotnet/sdk:latest
   tags: 
     - LDS
   stage: test
+  only:
+    - main
+    - dev
   script:
     - echo "Running the test job."
     - cd backend
     - dotnet test --no-restore
-
-frontend_deploy_preview:
-  image: node:16.16.0
-  tags: 
-    - LDS
-  stage: deploy
-  script:
-    - echo "Running the preview deploy job."
-    - cd frontend
-    - pnpm install --global vercel
-    - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
-    - vercel build --token=$VERCEL_TOKEN
-    - vercel deploy --prebuilt  --token=$VERCEL_TOKEN
-  only:
-    - dev
-  except:
-    - main
-
-frontend_deploy_production:
-  image: node:16.16.0
-  tags: 
-    - LDS
-  stage: deploy
-  script:
-    - echo "Running the production deploy job."
-    - cd frontend
-    - pnpm install --global vercel
-    - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-    - vercel build --prod --token=$VERCEL_TOKEN
-    - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
-  only:
-    - main
-  except:
-    - dev
