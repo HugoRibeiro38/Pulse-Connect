@@ -31,6 +31,9 @@ test_job:
   tags: 
     - LDS
   stage: test
+  only:
+    - main
+    - dev
   script:
     - echo "Running the test job."
     - cd backend
