@@ -14,12 +14,12 @@ var SQLConnectionString = SQLConfig["ConnectionString"];
 builder.Services.AddDbContext<APIDbContext>(options =>
 options.UseSqlServer(SQLConnectionString));
 
-// Configurar a conexão com o MongoDB
+// Configurar a conexï¿½o com o MongoDB
 var mongoDbConfig = configuration.GetSection("MongoDB");
 var mongoDbConnectionString = mongoDbConfig["ConnectionString"];
 var mongoDbDatabaseName = mongoDbConfig["DatabaseName"];
 
-// Adicione a configuração do MongoDB ao serviço
+// Adicione a configuraï¿½ï¿½o do MongoDB ao serviï¿½o
 builder.Services.Configure<MongoDbSettings>(settings =>
 {
     settings.ConnectionString = mongoDbConnectionString;
