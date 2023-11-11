@@ -78,4 +78,3 @@ frontend_deploy_production:
     - main
   except:
     - dev
-
