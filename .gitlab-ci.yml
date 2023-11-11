@@ -33,49 +33,8 @@ test_job:
   stage: test
   only:
     - main
-    - dev
-  script:
-    - echo "Running the test job."
-    - cd backend
-    - dotnet test --no-restore
 
-frontend_deploy_preview:
-  image: node:16.16.0
-  tags: 
-    - LDS
-  stage: deploy
-  cache:
-    paths:
-      - frontend/node_modules
+test_job: # Executes testing of the project
+  stage: test
   script:
-    - echo "Running the preview deploy job."
-    - cd frontend
-    - npm install pnpm
-    - ./node_modules/.bin/pnpm install --global vercel
-    - npm install @tanstack/eslint-plugin-query@^5.6.0
-    - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
-    - vercel build --token=$VERCEL_TOKEN
-    - vercel deploy --prebuilt --token=$VERCEL_TOKEN
-  only:
-    - dev
-  except:
-    - main
-
-
-frontend_deploy_production:
-  image: node:16.16.0
-  tags: 
-    - LDS
-  stage: deploy
-  script:
-    - echo "Running the production deploy job."
-    - cd frontend
-    - npm install -g pnpm
-    - pnpm install --global vercel
-    - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-    - vercel build --prod --token=$VERCEL_TOKEN
-    - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
-  only:
-    - main
-  except:
-    - dev
+    - dotnet test
