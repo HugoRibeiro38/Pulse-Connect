@@ -9,7 +9,6 @@ stages:
 
 before_script:
   - echo "Starting CI/CD"
-  - echo "VERCEL_TOKEN: $VERCEL_TOKEN"
 
 build_job:
   image: mcr.microsoft.com/dotnet/sdk:latest
