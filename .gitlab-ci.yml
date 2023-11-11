@@ -9,6 +9,7 @@ stages:
 
 before_script:
   - echo "Starting CI/CD"
+  - echo "VERCEL_TOKEN: $VERCEL_TOKEN"
 
 build_job:
   image: mcr.microsoft.com/dotnet/sdk:latest
@@ -44,9 +45,13 @@ frontend_deploy_preview:
   tags: 
     - LDS
   stage: deploy
+  cache:
+    paths:
+      - frontend/node_modules
   script:
     - echo "Running the preview deploy job."
     - cd frontend
+    - npm install -g pnpm
     - pnpm install --global vercel
     - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
     - vercel build --token=$VERCEL_TOKEN
@@ -64,6 +69,7 @@ frontend_deploy_production:
   script:
     - echo "Running the production deploy job."
     - cd frontend
+    - npm install -g pnpm
     - pnpm install --global vercel
     - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
     - vercel build --prod --token=$VERCEL_TOKEN
@@ -72,3 +78,4 @@ frontend_deploy_production:
     - main
   except:
     - dev
+
