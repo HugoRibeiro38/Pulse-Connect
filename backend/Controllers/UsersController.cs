@@ -26,7 +26,7 @@ namespace PulseConnect.Controllers
 
             return Ok(users);
         }
-  
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
@@ -37,8 +37,11 @@ namespace PulseConnect.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            var formattedUser = UserInfo(user); 
+
+            return Ok(formattedUser);
         }
+
 
         // POST: api/users
         [HttpPost]
