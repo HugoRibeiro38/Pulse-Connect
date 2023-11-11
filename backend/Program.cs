@@ -7,22 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-/*
-// Get actual values from environment variables or configuration
-var mssqlDb = Environment.GetEnvironmentVariable("MSSQL_DB");
-var mssqlUser = Environment.GetEnvironmentVariable("MSSQL_USER");
-var mssqlPassword = Environment.GetEnvironmentVariable("MSSQL_PASSWORD");
-
-// Replace placeholders in the connection string template with actual values
-var connectionString = connectionStringTemplate
-    .Replace("${MSSQL_DB}", mssqlDb)
-    .Replace("${MSSQL_USER}", mssqlUser)
-    .Replace("${MSSQL_PASSWORD}", mssqlPassword);
-*/
-
-// Use 'connectionString' to establish your database connection
-
-
 // Use 'connectionString' to establish your database connection
 var SQLConfig = configuration.GetSection("SQLServer");
 var SQLConnectionString = SQLConfig["ConnectionString"];

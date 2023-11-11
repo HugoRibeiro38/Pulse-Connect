@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\PulseConnect.csproj": {}
+    "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\backend\\PulseConnect.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\PulseConnect.csproj": {
+    "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\backend\\PulseConnect.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\PulseConnect.csproj",
+        "projectUniqueName": "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\backend\\PulseConnect.csproj",
         "projectName": "PulseConnect",
-        "projectPath": "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\PulseConnect.csproj",
-        "packagesPath": "C:\\Users\\MarcioRibeiro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MarcioRibeiro\\Documents\\LDS\\lds-2023-2024\\backend\\obj\\",
+        "projectPath": "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\backend\\PulseConnect.csproj",
+        "packagesPath": "C:\\Users\\ribei\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ribei\\OneDrive\\Ambiente de Trabalho\\LDS\\TP\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\MarcioRibeiro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ribei\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -86,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
