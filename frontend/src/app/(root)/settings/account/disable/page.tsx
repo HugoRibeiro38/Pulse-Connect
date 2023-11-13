@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @jsxImportSource client
 import { ArrowLeft, HeartCrack } from 'lucide-react';
 import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
@@ -17,48 +15,17 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '@/components/ui/form'
 import { Button } from '@/components/ui/button';
 import { SUPPORT_EMAIL } from '@/data/constants';
 import { ROUTES } from '@/routes';
 
-import { useForm } from 'react-hook-form'; // Assuming you're using react-hook-form
-import { CheckIcon } from 'lucide-react'; // Assuming you have a CheckIcon component
-
+import { AccountForm } from './account-form';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Disable',
 };
 
-const accountDeactivationReasons = [
-	{ label: "No longer using the service", value: "no_longer_using" },
-	{ label: "Privacy concerns", value: "privacy_concerns" },
-	{ label: "Account security issues", value: "security_issues" },
-	{ label: "Technical difficulties", value: "technical_difficulties" },
-	{ label: "Unsatisfactory user experience", value: "unsatisfactory_experience" },
-	{ label: "Other reasons", value: "other" },
-] as const;
-
 const DisableSettingsPage: NextPage = (): React.ReactNode => {
-	const form = useForm(); // Initialize the form context
-	const [isClient, setIsClient] = useState(false);
-
-	useEffect(() => {
-		setIsClient(true);
-	}, []);
-
-	if (!isClient) {
-		return null; // Render nothing on the server side
-	}
-
 	return (
 		<Fragment>
 			<div className='flex flex-row items-center justify-between gap-x-4'>
@@ -122,31 +89,7 @@ const DisableSettingsPage: NextPage = (): React.ReactNode => {
 					<br /> change them before deactivating this account.
 				</li>
 			</ul>
-
-			<FormField
-				control={form.control} // Assuming you have form control context
-				name="deactivationReason"
-				render={({ field }) => (
-					<FormItem className="flex flex-col mt-4">
-						<FormLabel>Reason for Account Deactivation</FormLabel>
-						<select
-							{...field}
-							className="border border-gray-300 p-2 rounded-md w-full"
-						>
-							<option value="" disabled>
-								Select a reason
-							</option>
-							{accountDeactivationReasons.map((reason) => (
-								<option key={reason.value} value={reason.value}>
-									{reason.label}
-								</option>
-							))}
-						</select>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-
+			<AccountForm />
 			<AlertDialog>
 				<AlertDialogTrigger asChild className='place-self-end'>
 					<Button variant='destructive'>
