@@ -13,6 +13,7 @@ using System.Collections.Generic;
         }
 
         public DbSet<Users> Users { get; set; }
+        public DbSet<Sessions> Sessions { get; set; }
 
     }
 }
