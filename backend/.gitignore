@@ -1,6 +1,7 @@
 # Visual Studio files
 .vscode/
 .vs/
+.obj/
 # User-specific files
 *.suo
 *.user
