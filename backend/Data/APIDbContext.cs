@@ -14,5 +14,7 @@ using System.Collections.Generic;
 
         public DbSet<Users> Users { get; set; }
 
+        public DbSet<PasswordReset> PasswordResets { get; set; }
+
     }
 }

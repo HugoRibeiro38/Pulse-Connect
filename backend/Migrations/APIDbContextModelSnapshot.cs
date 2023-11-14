@@ -22,6 +22,45 @@ namespace PulseConnect.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("PulseConnect.Models.PasswordReset", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("ConfirmNewPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Expire_Date");
+
+                    b.Property<string>("NewPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Token");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("user_id");
+
+                    b.Property<string>("currentPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("PasswordReset");
+                });
+
             modelBuilder.Entity("PulseConnect.Models.Users", b =>
                 {
                     b.Property<string>("ID")
@@ -89,7 +128,18 @@ namespace PulseConnect.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("PulseConnect.Models.PasswordReset", b =>
+                {
+                    b.HasOne("PulseConnect.Models.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
