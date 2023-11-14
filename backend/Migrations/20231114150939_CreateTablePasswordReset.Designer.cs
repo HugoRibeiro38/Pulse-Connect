@@ -12,7 +12,7 @@ using PulseConnect.Data;
 namespace PulseConnect.Migrations
 {
     [DbContext(typeof(APIDbContext))]
-    [Migration("20231114120600_CreateTablePasswordReset")]
+    [Migration("20231114150939_CreateTablePasswordReset")]
     partial class CreateTablePasswordReset
     {
         /// <inheritdoc />
