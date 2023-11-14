@@ -5,18 +5,29 @@ using System.Text;
 
 namespace PulseConnect.Services
 {
+    /// <summary>
+    /// Service for handling JWT (JSON Web Token) operations.
+    /// </summary>
     public class JwtTokenService : IJwtTokenService
     {
 
         private readonly IConfiguration _configuration;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JwtTokenService"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration containing JWT key.</param>
         public JwtTokenService(IConfiguration configuration)
         {
-            _configuration = configuration;
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-
+        /// <summary>
+        /// Generates a JWT token for the specified user ID.
+        /// </summary>
+        /// <param name="userID">The ID of the user for whom the token is generated.</param>
+        /// <returns>The generated JWT Token.</returns>
+        /// <exception cref="Exception">Error Thrown if secret key is null</exception>
         public string GenerateToken(string userID)
         {
            var secretKey = _configuration["Jwt:Key"] ?? throw new Exception("Secret Key is null");
@@ -41,11 +52,13 @@ namespace PulseConnect.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public string RefreshJwtToken(string token)
-        {
-            throw new NotImplementedException();
-        }
 
+        /// <summary>
+        /// Validates the given the JWT token.
+        /// </summary>
+        /// <param name="token">The JWT token to validate.</param>
+        /// <returns>True if the token is valid; otherwise, false.</returns>
+        /// <exception cref="Exception"></exception>
         public bool ValidateToken(string token)
         {
            
