@@ -18,9 +18,9 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - .DataBase/data:/var/opt/mssql/data        
-      - .DataBase/log:/var/opt/mssql/log
-      - .DataBase/secrets:/var/opt/mssql/secrets
+      - ./DataBase/data:/var/opt/mssql/data        
+      - ./DataBase/log:/var/opt/mssql/log
+      - ./DataBase/secrets:/var/opt/mssql/secrets
     environment:
       SA_PASSWORD: NewStrongP@ssw0rd
       ACCEPT_EULA: Y

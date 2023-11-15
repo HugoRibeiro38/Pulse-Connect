@@ -3,7 +3,8 @@ using PulseConnect.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace PulseConnect.Services {
+namespace PulseConnect.Services
+{
     public static class DataBaseManagementService
     {
 
@@ -16,6 +17,7 @@ namespace PulseConnect.Services {
 
                 serviceDB.Database.Migrate();
             }
+
         }
     }
 }

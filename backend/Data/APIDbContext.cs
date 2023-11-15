@@ -1,7 +1,9 @@
 ﻿using PulseConnect.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-  namespace PulseConnect.Data
+using System.Reflection;
+
+namespace PulseConnect.Data
 
 
 {
@@ -13,6 +15,15 @@ using System.Collections.Generic;
         }
 
         public DbSet<Users> Users { get; set; }
+
+        public DbSet<PasswordReset> PasswordResets { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
 
     }
 }
