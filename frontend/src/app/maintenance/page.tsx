@@ -2,16 +2,16 @@ import { redirect } from 'next/navigation';
 import { type Metadata, type NextPage } from 'next/types';
 
 import Countdown from '@/components/Countdown/Countdown';
-import { ROUTES } from '@/routes';
+import { APP_ROUTES } from '@/routes/app';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Maintenance',
 };
 
 const MaintenancePage: NextPage = (): React.ReactNode => {
-	if (process.env.MAINTENANCE_MODE === 'false') redirect(ROUTES.HOME);
+	if (process.env.MAINTENANCE_MODE === 'false') redirect(APP_ROUTES.HOME);
 	return (
-		<main className='flex h-screen flex-col items-center justify-center space-y-8 align-middle'>
+		<main className='flex h-screen flex-col items-center justify-center gap-y-8'>
 			<Countdown
 				targetDate={new Date(Date.now() + 1000 * 60 * 60 * 24 * 1)}
 			/>

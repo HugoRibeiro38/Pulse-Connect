@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { buttonVariants } from '@/components/ui/button';
-import { ROUTES } from '@/routes';
+import { APP_ROUTES } from '@/routes/app';
 
 const NotFound: React.FunctionComponent = (): React.ReactNode => {
 	return (
@@ -24,7 +24,7 @@ const NotFound: React.FunctionComponent = (): React.ReactNode => {
 				again or return to the home page.
 			</p>
 			<Link
-				href={ROUTES.HOME}
+				href={APP_ROUTES.HOME}
 				className={`${buttonVariants({ variant: 'default' })}`}>
 				<ArrowLeft className='mr-2 h-4 w-4' />
 				Go back

@@ -1,11 +1,13 @@
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
-import {
-	type SettingsItemProps,
-	settingsItems,
-} from '@/components/Settings/settings-items';
-import SettingsItem from '@/components/Settings/SettingsItem';
+import { SettingsItem } from '@/components/Settings';
+import { Title } from '@/components/Title';
+import { Button } from '@/components/ui/button';
+import { type SettingsItemProps, settingsItems } from '@/data/settings';
+import { APP_ROUTES } from '@/routes/app';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Settings',
@@ -14,25 +16,39 @@ export const metadata: Metadata = {
 const SettingsPage: NextPage = (): React.ReactNode => {
 	return (
 		<Fragment>
-			<div className='flex w-full flex-row items-center justify-between align-middle min-h-[40px]'>
-				<h1 className='text-xl font-semibold'>Settings</h1>
+			<div className='flex flex-row items-center justify-between gap-x-4'>
+				<Button variant='ghost' size='icon' asChild>
+					<Link href={APP_ROUTES.HOME}>
+						<ArrowLeft />
+					</Link>
+				</Button>
+				<Title title='Settings' />
 			</div>
-			<div className='flex w-full flex-col items-start justify-between space-y-8 align-middle'>
+			<div className='flex w-full flex-col items-start justify-between gap-8'>
 				{Object.keys(settingsItems).map(
 					(categoty: string, index: number) => (
 						<div
 							key={`${categoty}-${index}`}
-							className='flex w-full flex-col items-start justify-between space-y-4 align-middle'>
-							<span className='text-sm text-muted-foreground'>
+							className='flex w-full flex-col items-start justify-between gap-y-4'>
+							<h2 className='text-lg text-muted-foreground'>
 								{categoty}
-							</span>
+							</h2>
 							{settingsItems[categoty]?.map(
-								(item: SettingsItemProps, index: number) => (
+								(
+									{
+										href,
+										label,
+										subLabel,
+										icon,
+									}: SettingsItemProps,
+									index: number,
+								) => (
 									<SettingsItem
-										key={`${item.title}-${index}`}
-										href={item.href}
-										icon={item.icon}
-										title={item.title}
+										key={`${label}-${index}`}
+										href={href}
+										label={label}
+										subLabel={subLabel}
+										icon={icon}
 									/>
 								),
 							)}
