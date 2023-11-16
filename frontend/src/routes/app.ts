@@ -1,10 +1,11 @@
-export const ROUTES = {
+export const APP_ROUTES = {
 	HOME: '/',
 	CONNECTIONS: '/connections',
 	MESSAGES: '/messages',
 	NOTIFICATIONS: '/notifications',
 	PROFILE: '/profile',
 	ABOUT: '/about',
+	SEARCH: '/search',
 	FAQ: '/faq',
 	CONTACT: '/contact',
 	TERMS: '/terms',
