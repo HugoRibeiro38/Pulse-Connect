@@ -6,8 +6,9 @@ const Testing: React.FunctionComponent<
 	TestingProps
 > = ({}): React.ReactNode => {
 	return (
-		<div>
-		</div>
+		<main className=''>
+			<h1>Testing</h1>
+		</main>
 	);
 };
 

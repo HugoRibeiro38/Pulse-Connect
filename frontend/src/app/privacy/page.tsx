@@ -5,7 +5,7 @@ import { type Metadata, type NextPage } from 'next/types';
 
 import { buttonVariants } from '@/components/ui/button';
 import { CONTACT_EMAIL } from '@/data/constants';
-import { ROUTES } from '@/routes';
+import { APP_ROUTES } from '@/routes/app';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Privacy Policy',
@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 
 const PrivacyPage: NextPage = (): React.ReactNode => {
 	return (
-		<div className='mx-auto flex max-w-7xl flex-col items-start justify-center space-y-8 px-4 py-16 sm:px-6 lg:px-8'>
+		<div className='mx-auto flex max-w-7xl flex-col items-start justify-center gap-y-8 px-4 py-16 sm:px-6 lg:px-8'>
 			<div className='flex w-full flex-row items-center justify-between pb-8'>
-				<Link href={ROUTES.HOME}>
+				<Link href={APP_ROUTES.HOME}>
 					<Image
 						src='/logo/Logo Transparent Text Black.svg'
 						alt='Logo'
@@ -25,7 +25,7 @@ const PrivacyPage: NextPage = (): React.ReactNode => {
 					/>
 				</Link>
 				<Link
-					href={ROUTES.HOME}
+					href={APP_ROUTES.HOME}
 					className={`${buttonVariants({ variant: 'default' })}`}>
 					<ArrowLeft className='mr-2 h-4 w-4' />
 					Go back

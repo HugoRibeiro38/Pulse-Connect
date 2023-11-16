@@ -4,7 +4,7 @@ import { AlertCircle, ArrowLeft, Link } from 'lucide-react';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { ROUTES } from '@/routes';
+import { APP_ROUTES } from '@/routes/app';
 
 type GlobalErrorProps = {
 	error: Error & { digest?: string };
@@ -30,7 +30,7 @@ const GlobalError: React.FunctionComponent<GlobalErrorProps> = ({
 						className='w-full'
 						onClick={reset}
 						asChild>
-						<Link href={ROUTES.HOME}>
+						<Link href={APP_ROUTES.HOME}>
 							<ArrowLeft className='mr-2 h-4 w-4' /> Go back
 						</Link>
 					</Button>

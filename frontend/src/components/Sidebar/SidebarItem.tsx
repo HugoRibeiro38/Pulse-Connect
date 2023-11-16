@@ -20,7 +20,7 @@ const SidebarItem: React.FunctionComponent<SidebarItemProps> = ({
 	return (
 		<Link
 			href={href}
-			className='flex flex-col items-center justify-between space-y-2 underline-offset-4 hover:underline'>
+			className='flex flex-col items-center justify-between gap-y-2 decoration-solid decoration-2 underline-offset-4 hover:underline'>
 			<Image
 				src={icon}
 				alt='Icon'

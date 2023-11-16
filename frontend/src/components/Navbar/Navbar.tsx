@@ -4,16 +4,15 @@ import {
 	HelpCircle,
 	Languages,
 	LogOut,
-	Search,
 	Settings,
 	User,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { SearchBar } from '@/components/shared/SearchBar';
 import { ThemeButton } from '@/components/ThemeButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -27,8 +26,7 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { ROUTES } from '@/routes';
+import { APP_ROUTES } from '@/routes/app';
 
 const Navbar: React.FunctionComponent = (): React.ReactNode => {
 	return (
@@ -42,21 +40,7 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 					className='dark:nightMode h-8 w-auto'
 				/>
 			</Link>
-			<div className='flex w-full flex-row items-center justify-center gap-x-2'>
-				<Input
-					type='text'
-					placeholder='Search'
-					name='search'
-					className='max-w-lg'
-				/>
-				<Button
-					type='submit'
-					variant='default'
-					size='icon'
-					className='shrink-0'>
-					<Search className='h-5 w-5' />
-				</Button>
-			</div>
+			<SearchBar size='lg' />
 			<DropdownMenu>
 				<DropdownMenuTrigger
 					asChild
@@ -89,7 +73,7 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 					<DropdownMenuGroup>
 						<DropdownMenuItem>
 							<Link
-								href={ROUTES.PROFILE}
+								href={APP_ROUTES.PROFILE}
 								className='flex flex-row justify-center align-middle'>
 								<User className='mr-2 h-4 w-4' />
 								Profile
@@ -97,7 +81,7 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 						</DropdownMenuItem>
 						<DropdownMenuItem>
 							<Link
-								href={ROUTES.SETTINGS.ROOT}
+								href={APP_ROUTES.SETTINGS.ROOT}
 								className='flex flex-row justify-center align-middle'>
 								<Settings className='mr-2 h-4 w-4' />
 								Settings
@@ -161,7 +145,7 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 					</DropdownMenuItem>
 					<DropdownMenuItem className='cursor-pointer'>
 						<Link
-							href={ROUTES.AUTH.SIGNOUT}
+							href={APP_ROUTES.AUTH.SIGNOUT}
 							className='flex w-full flex-row items-center justify-start align-middle'>
 							<LogOut className='mr-2 h-4 w-4' />
 							Sign Out

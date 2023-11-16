@@ -8,7 +8,7 @@ const CountdownBox: React.FunctionComponent<CountdownBoxProps> = ({
 	label,
 }): React.ReactNode => {
 	return (
-		<div className='flex flex-col items-center justify-center space-y-2'>
+		<div className='flex flex-col items-center justify-center gap-y-2'>
 			<span className='flex h-16 w-16 flex-col items-center justify-center rounded-md bg-foreground text-xl font-medium text-background'>
 				{String(value).padStart(2, '0')}
 			</span>
