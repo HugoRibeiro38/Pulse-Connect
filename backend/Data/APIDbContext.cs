@@ -13,6 +13,9 @@ using System.Collections.Generic;
         }
 
         public DbSet<Users> Users { get; set; }
+        
+        //connections
+        public DbSet<Connections> Connections { get; set; }
 
     }
 }

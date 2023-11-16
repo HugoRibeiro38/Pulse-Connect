@@ -39,8 +39,11 @@ namespace PulseConnect.Models
         [Required]
         public ConnectionStatusEnum Connection_Status { get; set; }
 
-        public Users User1 { get; set; }
-        public Users User2 { get; set; }
+        public Connections()
+        {
+            // Inicialize ID_Connection com algum valor único, por exemplo, uma GUID
+            ID_Connection = Guid.NewGuid().ToString();
+        }
 
     }
 
