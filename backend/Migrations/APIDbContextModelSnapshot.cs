@@ -22,6 +22,7 @@ namespace PulseConnect.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+<<<<<<< HEAD
             modelBuilder.Entity("PulseConnect.Models.PasswordReset", b =>
                 {
                     b.Property<string>("ID")
@@ -59,6 +60,35 @@ namespace PulseConnect.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("PasswordReset");
+=======
+            modelBuilder.Entity("PulseConnect.Models.Connections", b =>
+                {
+                    b.Property<string>("ID_Connection")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("id_connection");
+
+                    b.Property<DateTime>("Connection_Date")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("connection_date");
+
+                    b.Property<int>("Connection_Status")
+                        .HasColumnType("int")
+                        .HasColumnName("connection_status");
+
+                    b.Property<string>("ID_User_1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("id_user_1");
+
+                    b.Property<string>("ID_User_2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("id_user_2");
+
+                    b.HasKey("ID_Connection");
+
+                    b.ToTable("Connections");
+>>>>>>> 47fdeff0e519e238bb4737fa2097eeb4863eb5b8
                 });
 
             modelBuilder.Entity("PulseConnect.Models.Users", b =>
@@ -129,6 +159,7 @@ namespace PulseConnect.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+<<<<<<< HEAD
                 });
 
             modelBuilder.Entity("PulseConnect.Models.PasswordReset", b =>
@@ -140,6 +171,8 @@ namespace PulseConnect.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+=======
+>>>>>>> 47fdeff0e519e238bb4737fa2097eeb4863eb5b8
                 });
 #pragma warning restore 612, 618
         }

@@ -15,6 +15,9 @@ namespace PulseConnect.Data
         }
 
         public DbSet<Users> Users { get; set; }
+        
+        //connections
+        public DbSet<Connections> Connections { get; set; }
 
         public DbSet<PasswordReset> PasswordResets { get; set; }
 
