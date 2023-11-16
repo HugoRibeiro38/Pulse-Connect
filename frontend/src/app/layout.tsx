@@ -56,11 +56,11 @@ export const metadata: Metadata = {
 		title: 'Pulse Connect',
 		description:
 			'This is an evaluation project of the LDS curricular unit.',
-		url: 'https://pulse-connect-omega.vercel.app/',
+		url: 'https://pulse-connect-lyart.vercel.app/',
 		siteName: 'Pulse Connect',
 		images: [
 			{
-				url: 'https://pulse-connect-omega.vercel.app/og-image.png',
+				url: 'https://pulse-connect-lyart.vercel.app/og-image.png',
 				width: 1200,
 				height: 630,
 				alt: 'Pulse Connect',
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
 		creator: '@pulseconnect',
 		images: [
 			{
-				url: 'https://pulse-connect-omega.vercel.app/twitter-image.png',
+				url: 'https://pulse-connect-lyart.vercel.app/twitter-image.png',
 				width: 1200,
 				height: 630,
 				alt: 'Pulse Connect',

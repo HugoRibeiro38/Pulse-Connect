@@ -17,7 +17,7 @@ const FeedLayout: React.FunctionComponent<FeedLayoutProps> = ({
 	return (
 		<Fragment>
 			<Navbar />
-			<div className='relative flex w-full h-full flex-row justify-between overflow-hidden'>
+			<div className='relative flex h-full w-full flex-row justify-between overflow-hidden'>
 				<Sidebar />
 				<main className='flex max-w-5xl flex-1 flex-col items-start justify-start gap-y-8 overflow-y-auto overflow-x-hidden border-x border-input p-16'>
 					{children}
