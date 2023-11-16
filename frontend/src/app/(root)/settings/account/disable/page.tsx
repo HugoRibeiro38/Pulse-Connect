@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/button';
 import { SUPPORT_EMAIL } from '@/data/constants';
 import { ROUTES } from '@/routes';
 
-import { AccountForm } from './account-form';
+import ConfirmationDialog from './confirmation-dialog';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Disable',
@@ -89,32 +89,7 @@ const DisableSettingsPage: NextPage = (): React.ReactNode => {
 					<br /> change them before deactivating this account.
 				</li>
 			</ul>
-			<AccountForm />
-			<AlertDialog>
-				<AlertDialogTrigger asChild className='place-self-end'>
-					<Button variant='destructive'>
-						<HeartCrack className='mr-2 h-4 w-4' /> Disable
-					</Button>
-				</AlertDialogTrigger>
-				<AlertDialogContent>
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							Are you absolutely sure you want to proceed?
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							You are about to deactivate your account. <br />
-							You can still reactivate it later, but we&apos;ll
-							miss you until then.
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter>
-						<AlertDialogCancel>Cancel</AlertDialogCancel>
-						<AlertDialogAction className='bg-destructive text-destructive-foreground hover:bg-destructive/90'>
-							Continue
-						</AlertDialogAction>
-					</AlertDialogFooter>
-				</AlertDialogContent>
-			</AlertDialog>
+			<ConfirmationDialog />
 		</Fragment>
 	);
 };
