@@ -20,7 +20,7 @@ const SettingsItem: React.FunctionComponent<SettingsItemProps> = ({
 			className='flex w-full cursor-pointer flex-row items-center justify-between rounded-md p-2 hover:bg-accent hover:text-accent-foreground'>
 			<div className='flex flex-row items-center justify-between gap-x-2'>
 				<div className='rounded-md border border-input bg-background p-2'>
-					<Icon className='h-5 w-5'/>
+					<Icon className='h-5 w-5' />
 				</div>
 				<div className='flex flex-col items-start justify-between text-base font-normal'>
 					{label}

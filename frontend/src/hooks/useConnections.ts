@@ -7,7 +7,7 @@ import {
 	getConnections,
 	getPendingConnections,
 } from '@/services/Connections';
-import { type Connections } from '@/types/Connection';
+import { type Connection, type Connections } from '@/types/Connection';
 
 export const KEYS = {
 	CONNECTIONS: ['connections'],
@@ -33,7 +33,7 @@ export const useDeleteConnection = () => {
 			queryClient.setQueriesData(
 				{ queryKey: KEYS.CONNECTIONS },
 				previousConnections?.filter(
-					(connection) => connection.id !== id,
+					(connection: Connection) => connection.id !== id,
 				),
 			);
 			return { previousConnections };

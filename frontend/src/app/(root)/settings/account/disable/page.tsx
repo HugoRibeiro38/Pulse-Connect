@@ -2,10 +2,11 @@ import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
+
 import { Title } from '@/components/Title';
 import { Button } from '@/components/ui/button';
 import { SUPPORT_EMAIL } from '@/data/constants';
-import { ROUTES } from '@/routes';
+import { APP_ROUTES } from '@/routes/app';
 
 import ConfirmationDialog from './confirmation-dialog';
 
@@ -18,7 +19,7 @@ const DisableSettingsPage: NextPage = (): React.ReactNode => {
 		<Fragment>
 			<div className='flex flex-row items-center justify-between gap-x-4'>
 				<Button variant='ghost' size='icon' asChild>
-					<Link href={ROUTES.SETTINGS.ROOT}>
+					<Link href={APP_ROUTES.SETTINGS.ROOT}>
 						<ArrowLeft />
 					</Link>
 				</Button>
@@ -65,7 +66,7 @@ const DisableSettingsPage: NextPage = (): React.ReactNode => {
 					If you want to change your username, there is no need to
 					deactivate your account, just edit in{' '}
 					<Link
-						href={ROUTES.SETTINGS.GENERAL.ACCOUNT}
+						href={APP_ROUTES.SETTINGS.GENERAL.ACCOUNT}
 						className='text-primary underline underline-offset-4'>
 						settings
 					</Link>
