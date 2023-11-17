@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { cn } from "@/lib/utils"
@@ -17,15 +17,15 @@ import {
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
-import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command'
-import { Form, FormField, FormDescription, FormLabel, FormItem, FormControl, FormMessage } from '@/components/ui/form'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command'
+import { Form, FormField, FormLabel, FormItem, FormControl, FormMessage } from '@/components/ui/form'
 import { useForm } from "react-hook-form"
 import { toast } from '@/components/ui/use-toast';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Input } from '@/components/ui/input';
 
 interface ConfirmationDialogProps {
-    onClose: () => void;
+    onClose?: () => void;
 }
 
 const accountDeactivationReasons = [
@@ -54,7 +54,11 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
 
     const handleConfirm = () => {
         // Add your logic here to handle the confirmation, e.g., submit a request to the server
-        onClose();
+        toast({
+            title: "You submitted the following values:",
+            description: JSON.stringify(form.getValues(), null, 2),
+        });
+
     };
 
     const form = useForm<DisableFormValues>({
@@ -105,7 +109,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
                                                             ? accountDeactivationReasons.find(
                                                                 (reason) => reason.value === field.value
                                                             )?.label
-                                                            : "Select language"}
+                                                            : "Select option"}
                                                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                                     </Button>
                                                 </FormControl>
@@ -148,7 +152,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
                                     <FormItem>
                                         <FormLabel>Please enter your current password</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Password" {...field} />
+                                            <Input type='password' placeholder="Password" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
