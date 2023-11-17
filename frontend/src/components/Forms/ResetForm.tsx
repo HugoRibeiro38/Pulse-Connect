@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { ROUTES } from '@/routes';
+import { APP_ROUTES } from '@/routes/app';
 import { type IReset, resetPasswordSchema } from '@/validators/auth';
 
 const ResetForm: React.FunctionComponent = (): React.ReactNode => {
@@ -30,7 +30,7 @@ const ResetForm: React.FunctionComponent = (): React.ReactNode => {
 	const email = searchParams.get('email');
 	const token = searchParams.get('token');
 
-	if (!email || !token) redirect(ROUTES.AUTH.SIGNIN);
+	if (!email || !token) redirect(APP_ROUTES.AUTH.SIGNIN);
 
 	const form = useForm<IReset>({
 		resolver: zodResolver(resetPasswordSchema),
@@ -112,7 +112,7 @@ const ResetForm: React.FunctionComponent = (): React.ReactNode => {
 				</Button>
 				<Separator />
 				<Link
-					href={ROUTES.AUTH.SIGNIN}
+					href={APP_ROUTES.AUTH.SIGNIN}
 					className={`w-full ${buttonVariants({
 						variant: 'secondary',
 					})}`}>
