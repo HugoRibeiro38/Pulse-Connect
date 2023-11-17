@@ -1,16 +1,10 @@
 export const API_ROUTES = {
-	USER: {
-		getUsers: '/users',
-		getUserById: (id: string) => `/users/${id}`,
-	},
 	CONNECTIONS: {
-		getConnections: '/connections',
-	},
-	AUTH: {
-		signIn: '/auth/sign-in',
-		signUp: '/auth/sign-up',
-		signOut: '/auth/sign-out',
-		forgotPassword: '/auth/forgot-password',
-		resetPassword: '/auth/reset-password',
+		GET_CONNECTIONS: '/connections',
+		GET_CONNECTIONS_BY_NAME: (name: string) => `/connections/${name}`,
+		DELETE_CONNECTION: (id: string) => `/connections/${id}`,
+		GET_PENDING_CONNECTIONS: '/pending',
+		GET_PENDING_CONNECTIONS_BY_NAME: (name: string) => `/pending/${name}`,
+		DELETE_PENDING_CONNECTION: (id: string) => `/pending/${id}`,
 	},
 };

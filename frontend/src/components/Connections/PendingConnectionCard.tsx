@@ -4,9 +4,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { APP_ROUTES } from '@/routes/app';
 import { getInitials } from '@/utils/initials';
 
-import RemoveConnectionButton from './RemoveConnectionButton';
+import RemovePendingConnectionButton from './RemovePendingConnectionButton';
 
-type ConnectionCardProps = {
+type PendingConnectionCardProps = {
 	id: string;
 	image: string;
 	firstName: string;
@@ -14,17 +14,13 @@ type ConnectionCardProps = {
 	username: string;
 };
 
-const ConnectionCard: React.FunctionComponent<ConnectionCardProps> = ({
-	id,
-	image,
-	firstName,
-	lastName,
-	username,
-}): React.ReactNode => {
+const PendingConnectionCard: React.FunctionComponent<
+	PendingConnectionCardProps
+> = ({ id, image, firstName, lastName, username }): React.ReactNode => {
 	const initials = getInitials(firstName, lastName);
 	return (
 		<div className='flex flex-col items-center justify-between gap-y-8 rounded-lg border bg-card p-6 text-card-foreground shadow-sm'>
-			<div className='flex flex-col w-full'>
+			<div className='flex w-full flex-col'>
 				<Link
 					href={`${APP_ROUTES.PROFILE}/${id}`}
 					className='flex w-full flex-col items-center justify-between gap-y-4'>
@@ -42,9 +38,9 @@ const ConnectionCard: React.FunctionComponent<ConnectionCardProps> = ({
 					</div>
 				</Link>
 			</div>
-			<RemoveConnectionButton id={id} />
+			<RemovePendingConnectionButton id={id} />
 		</div>
 	);
 };
 
-export default ConnectionCard;
+export default PendingConnectionCard;
