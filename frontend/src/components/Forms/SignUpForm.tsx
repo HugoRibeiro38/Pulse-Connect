@@ -19,15 +19,13 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { ROUTES } from '@/routes';
-import { type LocalStorageProps } from '@/types/auth';
+import { APP_ROUTES } from '@/routes/app';
+import { writeOnLocalStorage } from '@/utils/local-storage';
 import { type ISignUp, signUpSchema } from '@/validators/auth';
 
 const SignUpForm: React.FunctionComponent = (): React.ReactNode => {
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const refCaptcha = useRef<ReCAPTCHA>(null);
-	const { setItem } = useLocalStorage<LocalStorageProps>('remember');
 
 	const form = useForm<ISignUp>({
 		resolver: zodResolver(signUpSchema),
@@ -45,10 +43,13 @@ const SignUpForm: React.FunctionComponent = (): React.ReactNode => {
 		setIsSubmitting(true);
 
 		if (data.remember)
-			setItem({
-				email: data.email,
-				password: data.password,
-				remember: data.remember,
+			writeOnLocalStorage({
+				key: 'remember',
+				data: {
+					email: data.email,
+					password: data.password,
+					remember: data.remember,
+				},
 			});
 
 		console.log('Form data: ' + JSON.stringify(data));
@@ -197,7 +198,7 @@ const SignUpForm: React.FunctionComponent = (): React.ReactNode => {
 						)}
 					/>
 					<Link
-						href={ROUTES.AUTH.FORGOT_PASSWORD}
+						href={APP_ROUTES.AUTH.FORGOT_PASSWORD}
 						className={`${buttonVariants({
 							variant: 'link',
 						})}`}>

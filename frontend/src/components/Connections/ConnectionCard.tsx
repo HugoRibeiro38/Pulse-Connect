@@ -24,7 +24,7 @@ const ConnectionCard: React.FunctionComponent<ConnectionCardProps> = ({
 	const initials = getInitials(firstName, lastName);
 	return (
 		<div className='flex flex-col items-center justify-between gap-y-8 rounded-lg border bg-card p-6 text-card-foreground shadow-sm'>
-			<div className='flex flex-col w-full'>
+			<div className='flex w-full flex-col'>
 				<Link
 					href={`${APP_ROUTES.PROFILE}/${id}`}
 					className='flex w-full flex-col items-center justify-between gap-y-4'>

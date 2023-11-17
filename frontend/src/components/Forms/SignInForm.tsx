@@ -21,20 +21,21 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { ROUTES } from '@/routes';
-import { type LocalStorageProps } from '@/types/auth';
+import { APP_ROUTES } from '@/routes/app';
 import { decrypt, encrypt } from '@/utils/cryptography';
+import {
+	readFromLocalStorage,
+	removeFromLocalStorage,
+	writeOnLocalStorage,
+} from '@/utils/local-storage';
 import { type ISignIn, signInSchema } from '@/validators/auth';
 
 const SignInForm: React.FunctionComponent = (): React.ReactNode => {
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const refCaptcha = useRef<ReCAPTCHA>(null);
 	const searchParams = useSearchParams();
-	const { getItem, setItem, removeItem } =
-		useLocalStorage<LocalStorageProps>('remember');
 
-	const callbackUrl = searchParams.get('callbackUrl') ?? ROUTES.HOME;
+	const callbackUrl = searchParams.get('callbackUrl') ?? APP_ROUTES.HOME;
 
 	const form = useForm<ISignIn>({
 		resolver: zodResolver(signInSchema),
@@ -47,7 +48,11 @@ const SignInForm: React.FunctionComponent = (): React.ReactNode => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const storedData = getItem();
+			const storedData: {
+				email: string;
+				password: string;
+				remember: boolean;
+			} | null = readFromLocalStorage({ key: 'remember' });
 			if (!storedData) return;
 			const password = await decrypt(storedData.password);
 			if (!password) return;
@@ -56,7 +61,7 @@ const SignInForm: React.FunctionComponent = (): React.ReactNode => {
 			form.setValue('remember', storedData.remember);
 		};
 		void fetchData();
-	}, [form, getItem]);
+	}, [form]);
 
 	const onSubmit: SubmitHandler<ISignIn> = async ({
 		email,
@@ -65,11 +70,18 @@ const SignInForm: React.FunctionComponent = (): React.ReactNode => {
 	}: ISignIn) => {
 		setIsSubmitting(true);
 
-		if (!remember) removeItem();
+		if (!remember) removeFromLocalStorage({ key: 'remember' });
 		else {
 			const encryptedPassword = await encrypt(password);
 			if (!encryptedPassword) return;
-			setItem({ email, password: encryptedPassword, remember });
+			writeOnLocalStorage({
+				key: 'remember',
+				data: {
+					email,
+					password: encryptedPassword,
+					remember,
+				},
+			});
 		}
 
 		const response = await signIn('credentials', {
@@ -142,7 +154,7 @@ const SignInForm: React.FunctionComponent = (): React.ReactNode => {
 						)}
 					/>
 					<Link
-						href={ROUTES.AUTH.FORGOT_PASSWORD}
+						href={APP_ROUTES.AUTH.FORGOT_PASSWORD}
 						className={`${buttonVariants({
 							variant: 'link',
 						})}`}>
@@ -170,7 +182,7 @@ const SignInForm: React.FunctionComponent = (): React.ReactNode => {
 				</Button>
 				<Separator />
 				<Link
-					href={ROUTES.AUTH.SIGNUP}
+					href={APP_ROUTES.AUTH.SIGNUP}
 					className={`w-full ${buttonVariants({
 						variant: 'secondary',
 					})}`}>

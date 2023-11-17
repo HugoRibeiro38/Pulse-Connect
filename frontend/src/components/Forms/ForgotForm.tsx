@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { ROUTES } from '@/routes';
+import { APP_ROUTES } from '@/routes/app';
 import { forgotPasswordSchema, type IForgot } from '@/validators/auth';
 
 const ForgotForm: React.FunctionComponent = (): React.ReactNode => {
@@ -83,7 +83,7 @@ const ForgotForm: React.FunctionComponent = (): React.ReactNode => {
 				</Button>
 				<Separator />
 				<Link
-					href={ROUTES.AUTH.SIGNIN}
+					href={APP_ROUTES.AUTH.SIGNIN}
 					className={`w-full ${buttonVariants({
 						variant: 'secondary',
 					})}`}>
