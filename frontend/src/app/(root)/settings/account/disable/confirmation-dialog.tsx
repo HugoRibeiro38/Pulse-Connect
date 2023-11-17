@@ -22,6 +22,7 @@ import { Form, FormField, FormDescription, FormLabel, FormItem, FormControl, For
 import { useForm } from "react-hook-form"
 import { toast } from '@/components/ui/use-toast';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import { Input } from '@/components/ui/input';
 
 interface ConfirmationDialogProps {
     onClose: () => void;
@@ -62,14 +63,11 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
 
     function onSubmit(data: DisableFormValues) {
         toast({
-            title: "You submitted the following values:",
-            description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-                </pre>
-            ),
-        })
-    }
+          title: "You submitted the following values:",
+          description: JSON.stringify(data, null, 2), // Convert the React element to a string
+        });
+      }
+      
 
     return (
         <AlertDialog>
@@ -81,7 +79,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Confirmation</AlertDialogTitle>
+                    <AlertDialogTitle>Account disable form</AlertDialogTitle>
                 </AlertDialogHeader>
                 <AlertDialogDescription>
                     <Form {...form}>
@@ -91,7 +89,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
                                 name='reason'
                                 render={({ field }) => (
                                     <FormItem className='flex flex-col'>
-                                        <FormLabel>Reason for disable</FormLabel>
+                                        <FormLabel>Wny do you wish to leave our service?</FormLabel>
                                         <Popover>
                                             <PopoverTrigger asChild>
                                                 <FormControl>
@@ -114,8 +112,8 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
                                             </PopoverTrigger>
                                             <PopoverContent className="w-[200px] p-0">
                                                 <Command>
-                                                    <CommandInput placeholder="Search language..." />
-                                                    <CommandEmpty>No language found.</CommandEmpty>
+                                                    <CommandInput placeholder="Search option..." />
+                                                    <CommandEmpty>No option found.</CommandEmpty>
                                                     <CommandGroup>
                                                         {accountDeactivationReasons.map((reason) => (
                                                             <CommandItem
@@ -143,6 +141,19 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
                                     </FormItem>
                                 )}
                             ></FormField>
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Please enter your current password</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Password" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                         </form>
                     </Form>
                 </AlertDialogDescription>
