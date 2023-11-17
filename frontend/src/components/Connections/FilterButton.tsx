@@ -19,8 +19,9 @@ const FilterButton: React.FunctionComponent<ThemeButtonProps> = ({
 	icon,
 }): React.ReactNode => {
 	const searchParams = useSearchParams();
-	const sortedBy = searchParams.get('sort') ?? 'name';
-	const orderBy = searchParams.get('order') ?? 'asc';
+	const sortedBy = searchParams?.get('sort') ?? 'name';
+	const orderBy = searchParams?.get('order') ?? 'asc';
+
 	return (
 		<Link
 			href={`?${new URLSearchParams({ sort, order }).toString()}`}

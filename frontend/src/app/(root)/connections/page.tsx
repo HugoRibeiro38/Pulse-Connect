@@ -1,14 +1,24 @@
+import {
+	dehydrate,
+	HydrationBoundary,
+	QueryClient,
+} from '@tanstack/react-query';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
-import { ConnectionCard } from '@/components/Connections';
-import FilterSection from '@/components/Connections/FilterSection';
+import {
+	ConnectionsView,
+	PendingConnectionsView,
+} from '@/components/Connections/';
 import { Title } from '@/components/Title';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { KEYS } from '@/hooks/useConnections';
 import { APP_ROUTES } from '@/routes/app';
+import { getConnections, getPendingConnections } from '@/services/Connections';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Connections',
@@ -23,14 +33,18 @@ type ConnectionsPageProps = {
 	searchParams?: SearchParamsProps;
 };
 
-const ConnectionsPage: NextPage<ConnectionsPageProps> = ({
-	searchParams,
-}): React.ReactNode => {
-	const sortBy = searchParams?.sort ?? 'name';
-	const orderBy = searchParams?.order ?? 'asc';
-
-	console.log('SORT BY: ', sortBy);
-	console.log('ORDER BY: ', orderBy);
+const ConnectionsPage: NextPage<ConnectionsPageProps> = async () => {
+	const queryClient = new QueryClient();
+	await Promise.all([
+		queryClient.prefetchQuery({
+			queryKey: KEYS.CONNECTIONS,
+			queryFn: getConnections,
+		}),
+		queryClient.prefetchQuery({
+			queryKey: KEYS.PENDING_CONNECTIONS,
+			queryFn: getPendingConnections,
+		}),
+	]);
 
 	return (
 		<Fragment>
@@ -43,7 +57,13 @@ const ConnectionsPage: NextPage<ConnectionsPageProps> = ({
 					</Button>
 					<Title title='Connections' />
 				</div>
-				<FilterSection />
+				<div className='div flex flex-row items-center justify-between gap-x-2'>
+					<Input
+						type='text'
+						placeholder='Search...'
+						className='w-full'
+					/>
+				</div>
 			</div>
 			<Tabs defaultValue='connections' className='flex w-full flex-col'>
 				<TabsList>
@@ -54,36 +74,14 @@ const ConnectionsPage: NextPage<ConnectionsPageProps> = ({
 						Pending
 					</TabsTrigger>
 				</TabsList>
-				<TabsContent value='connections' className='mt-8'>
-					<div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-						{Array.from({ length: 24 }).map((_, index) => (
-							<ConnectionCard
-								key={`connection-${index}`}
-								type='connection'
-								id={index.toString()}
-								image={'https://github.com/wallq.png'}
-								firstName={'Sérgio'}
-								lastName={'Félix'}
-								username={'@wallq'}
-							/>
-						))}
-					</div>
-				</TabsContent>
-				<TabsContent value='pending' className='mt-8'>
-					<div className='grid grid-cols-4 gap-4'>
-						{Array.from({ length: 6 }).map((_, index) => (
-							<ConnectionCard
-								key={`pending-${index}`}
-								type='pending'
-								id={index.toString()}
-								image={'https://github.com/wallq.png'}
-								firstName={'Sérgio'}
-								lastName={'Félix'}
-								username={'@wallq'}
-							/>
-						))}
-					</div>
-				</TabsContent>
+				<HydrationBoundary state={dehydrate(queryClient)}>
+					<TabsContent value='connections' className='mt-8'>
+						<ConnectionsView />
+					</TabsContent>
+					<TabsContent value='pending' className='mt-8'>
+						<PendingConnectionsView />
+					</TabsContent>
+				</HydrationBoundary>
 			</Tabs>
 		</Fragment>
 	);

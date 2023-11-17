@@ -37,7 +37,9 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 					alt='Logo'
 					width={32}
 					height={32}
-					className='dark:nightMode h-8 w-auto'
+					priority={true}
+					style={{ width: 'auto' }}
+					className='dark:nightMode h-8'
 				/>
 			</Link>
 			<SearchBar size='lg' />
