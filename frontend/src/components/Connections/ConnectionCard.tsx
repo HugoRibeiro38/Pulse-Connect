@@ -1,21 +1,12 @@
-import { Unlink, XCircle } from 'lucide-react';
 import Link from 'next/link';
-import { Fragment } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
 import { APP_ROUTES } from '@/routes/app';
 import { getInitials } from '@/utils/initials';
 
+import RemoveConnectionButton from './RemoveConnectionButton';
+
 type ConnectionCardProps = {
-	type: 'connection' | 'pending';
 	id: string;
 	image: string;
 	firstName: string;
@@ -24,7 +15,6 @@ type ConnectionCardProps = {
 };
 
 const ConnectionCard: React.FunctionComponent<ConnectionCardProps> = ({
-	type,
 	id,
 	image,
 	firstName,
@@ -33,39 +23,27 @@ const ConnectionCard: React.FunctionComponent<ConnectionCardProps> = ({
 }): React.ReactNode => {
 	const initials = getInitials(firstName, lastName);
 	return (
-		<Link
-			href={`${APP_ROUTES.PROFILE}/${id}`}
-			className='transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105'>
-			<Card>
-				<CardHeader className='flex flex-col items-center justify-between gap-y-2'>
+		<div className='flex flex-col items-center justify-between gap-y-8 rounded-lg border bg-card p-6 text-card-foreground shadow-sm'>
+			<div className='flex flex-col w-full'>
+				<Link
+					href={`${APP_ROUTES.PROFILE}/${id}`}
+					className='flex w-full flex-col items-center justify-between gap-y-4'>
 					<Avatar className='h-16 w-16'>
 						<AvatarImage src={image} alt='Avatar' />
 						<AvatarFallback>{initials}</AvatarFallback>
 					</Avatar>
-					<div className='flex flex-col items-center justify-between'>
-						<CardTitle>
+					<div className='flex flex-col items-center justify-between gap-y-1 text-center'>
+						<div className='text-lg font-semibold leading-none tracking-tight'>
 							{firstName} {lastName}
-						</CardTitle>
-						<CardDescription>{username}</CardDescription>
+						</div>
+						<div className='text-sm text-muted-foreground'>
+							@{username}
+						</div>
 					</div>
-				</CardHeader>
-				<CardContent>
-					<Button className='w-full'>
-						{type === 'connection' ? (
-							<Fragment>
-								<Unlink className='mr-2 h-4 w-4' />
-								Disconnect
-							</Fragment>
-						) : (
-							<Fragment>
-								<XCircle className='mr-2 h-4 w-4' />
-								Cancel
-							</Fragment>
-						)}
-					</Button>
-				</CardContent>
-			</Card>
-		</Link>
+				</Link>
+			</div>
+			<RemoveConnectionButton id={id} />
+		</div>
 	);
 };
 

@@ -1,2 +1,2 @@
-export { default as ConnectionCard } from './ConnectionCard';
-export { default as FilterButton } from './FilterButton';
+export { default as ConnectionsView } from './ConnectionsView';
+export { default as PendingConnectionsView } from './PendingConnectionsView';
