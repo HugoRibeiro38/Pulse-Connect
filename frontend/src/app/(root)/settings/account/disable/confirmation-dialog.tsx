@@ -142,6 +142,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
                                                 </Command>
                                             </PopoverContent>
                                         </Popover>
+                                        <FormMessage>{form.formState.errors.reason?.message}</FormMessage>
                                     </FormItem>
                                 )}
                             ></FormField>
@@ -154,7 +155,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({ onClose }) => {
                                         <FormControl>
                                             <Input type='password' placeholder="Password" {...field} />
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage>{form.formState.errors.password?.message}</FormMessage>
                                     </FormItem>
                                 )}
                             />
