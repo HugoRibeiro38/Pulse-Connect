@@ -1,3 +1,6 @@
+'use client';
+
+import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 import {
 	ArrowLeft,
 	CalendarDays,
@@ -13,11 +16,15 @@ import { Fragment } from 'react';
 import { Title } from '@/components/Title';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogFooter,
+	DialogHeader,
+	DialogTrigger,
+} from '@/components/ui/dialog';
 import { APP_ROUTES } from '@/routes/app';
-
-export const metadata: Metadata = {
-	title: 'Pulse Connect - Profile',
-};
 
 const ProfilePage: NextPage = (): React.ReactNode => {
 	return (
@@ -33,23 +40,75 @@ const ProfilePage: NextPage = (): React.ReactNode => {
 				</div>
 			</div>
 			<div className='relative w-full'>
-				<Image
-					src='https://images.unsplash.com/photo-1682336606328-060825eb6bb4'
-					alt='Banner Image'
-					width={1920}
-					height={1080}
-					className='relative h-64 w-full rounded-md object-cover object-center'
-					placeholder='blur'
-					blurDataURL='data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPUVFX5DwACZAFzjE95IwAAAABJRU5ErkJggg=='
-				/>
-				<Avatar className='absolute bottom-0 left-8 h-32 w-32 translate-y-16 transform shadow-md'>
-					<AvatarImage
-						src='https://www.apple.com/leadership/images/bio/tim-cook_image.png.og.png'
-						alt='Profile Image'
-						className='object-cover object-center'
-					/>
-					<AvatarFallback>WQ</AvatarFallback>
-				</Avatar>
+				<Dialog>
+					<DialogTrigger className='w-full'>
+						<Image
+							src='https://images.unsplash.com/photo-1682336606328-060825eb6bb4'
+							alt='Banner Image'
+							width={1500}
+							height={500}
+							className='relative h-64 w-full rounded-md object-cover object-center'
+							placeholder='blur'
+							blurDataURL='data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPUVFX5DwACZAFzjE95IwAAAABJRU5ErkJggg=='
+						/>
+					</DialogTrigger>
+					<DialogContent>
+						<DialogHeader>
+							<DialogTitle>Tim Cook</DialogTitle>
+							<DialogDescription>Header Image</DialogDescription>
+						</DialogHeader>
+						<Image
+							src='https://images.unsplash.com/photo-1682336606328-060825eb6bb4'
+							alt='Banner Image'
+							width={1500}
+							height={500}
+							className='h-auto w-full rounded-md object-cover object-center'
+							placeholder='blur'
+							blurDataURL='data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPUVFX5DwACZAFzjE95IwAAAABJRU5ErkJggg=='
+						/>
+						<DialogFooter>
+							<DialogClose asChild>
+								<Button type='button' variant='secondary'>
+									Close
+								</Button>
+							</DialogClose>
+						</DialogFooter>
+					</DialogContent>
+				</Dialog>
+				<Dialog>
+					<DialogTrigger>
+						<Avatar className='absolute bottom-0 left-8 h-32 w-32 translate-y-16 transform shadow-md'>
+							<AvatarImage
+								src='https://www.apple.com/leadership/images/bio/tim-cook_image.png.og.png'
+								alt='Profile Image'
+								className='object-cover object-center'
+							/>
+							<AvatarFallback>WQ</AvatarFallback>
+						</Avatar>
+					</DialogTrigger>
+					<DialogContent>
+						<DialogHeader>
+							<DialogTitle>Tim Cook</DialogTitle>
+							<DialogDescription>Profile Image</DialogDescription>
+						</DialogHeader>
+						<Image
+							src='https://www.apple.com/leadership/images/bio/tim-cook_image.png.og.png'
+							alt='Banner Image'
+							width={256}
+							height={256}
+							className='h-auto w-full rounded-md object-cover object-center'
+							placeholder='blur'
+							blurDataURL='data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPUVFX5DwACZAFzjE95IwAAAABJRU5ErkJggg=='
+						/>
+						<DialogFooter>
+							<DialogClose asChild>
+								<Button type='button' variant='secondary'>
+									Close
+								</Button>
+							</DialogClose>
+						</DialogFooter>
+					</DialogContent>
+				</Dialog>
 			</div>
 			<div className='mt-16 flex w-full flex-col gap-y-4'>
 				<div className='flex flex-row items-center justify-between'>
