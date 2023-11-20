@@ -2,6 +2,8 @@ using PulseConnect.Data;
 using Microsoft.EntityFrameworkCore;
 using PulseConnect.Services;
 using PulseConnect.Settings;
+using PulseConnect.Middleware;
+using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +44,16 @@ if (app.Environment.IsDevelopment())
 DataBaseManagementService.MigrationInitialisation(app);
 
 app.UseHttpsRedirection();
+
+
+// Uso Middleware Desenvolvido
+app.UseMiddleware<AuthenticationMiddleware>();
+
+//Uso de Autenticação
+app.UseAuthentication();
+
+//Uso de autorização
+app.UseAuthorization();
 
 app.UseAuthorization();
 
