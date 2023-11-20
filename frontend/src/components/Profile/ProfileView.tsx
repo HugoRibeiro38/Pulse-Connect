@@ -1,0 +1,117 @@
+'use client';
+
+import { CalendarDays, Link as LinkIcon, Mail, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { Fragment } from 'react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { useGetUserById } from '@/hooks/useUsers';
+import { formatJoinDate } from '@/utils/format-join-date';
+import { getInitials } from '@/utils/initials';
+import { truncateText } from '@/utils/truncate-text';
+
+import ProfileSkeleton from './ProfileSkeleton';
+
+type ProfileViewProps = {
+	id: string;
+};
+
+const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
+	id,
+}): React.ReactNode => {
+	const { data, isLoading, error } = useGetUserById(id);
+
+	if (isLoading) return <ProfileSkeleton />;
+
+	if (error) return <div>Error: {error.message}</div>;
+
+	if (!data) return <div>Not found</div>;
+
+	return (
+		<Fragment>
+			<div className='relative w-full'>
+				<Image
+					src={data.banner}
+					alt='Banner Image'
+					width={1920}
+					height={1080}
+					className='relative h-64 w-full rounded-md object-cover object-center'
+					placeholder='blur'
+					blurDataURL='data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPUVFX5DwACZAFzjE95IwAAAABJRU5ErkJggg=='
+				/>
+				<Avatar className='absolute bottom-0 left-8 h-32 w-32 translate-y-16 transform shadow-md'>
+					<AvatarImage
+						src={data.image}
+						alt='Profile Image'
+						className='object-cover object-center'
+					/>
+					<AvatarFallback>
+						{getInitials(data.firstName, data.lastName)}
+					</AvatarFallback>
+				</Avatar>
+			</div>
+			<div className='mt-16 flex w-full flex-col gap-y-4'>
+				<div className='flex flex-row items-center justify-between'>
+					<div className='flex flex-col'>
+						<h2 className='text-xl font-bold'>
+							{data.firstName} {data.lastName}
+						</h2>
+						<span className='text-sm text-muted-foreground'>
+							@{data.username}
+						</span>
+					</div>
+					<div className='flex flex-row justify-between gap-x-2'>
+						<Button>Connect</Button>
+					</div>
+				</div>
+				<p className='w-3/4 text-base font-normal'>
+					{truncateText(data.bio, 144)}
+				</p>
+				<div className='flex flex-col gap-y-1'>
+					<div className='flex flex-row gap-x-4'>
+						<div className='flex flex-row items-center gap-x-2'>
+							<MapPin className='h-4 w-4 text-muted-foreground' />
+							<span className='text-sm text-muted-foreground'>
+								{data.city}, {data.country}
+							</span>
+						</div>
+						<div className='flex flex-row items-center gap-x-2'>
+							<CalendarDays className='h-4 w-4 text-muted-foreground' />
+							<span className='text-sm text-muted-foreground'>
+								Joined in {formatJoinDate(data.createdAt)}
+							</span>
+						</div>
+					</div>
+					<div className='flex flex-row gap-x-4'>
+						<div className='flex flex-row items-center gap-x-2'>
+							<Mail className='h-4 w-4 text-muted-foreground' />
+							<a
+								href={`mailto:${data.email}?subject=Contact by profile page at Pulse Connect.`}
+								className='text-sm text-primary underline-offset-4 hover:underline'>
+								{data.email}
+							</a>
+						</div>
+						<div className='flex flex-row items-center gap-x-2'>
+							<LinkIcon className='h-4 w-4 text-muted-foreground' />
+							<a
+								href={data.url}
+								target='_blank'
+								className='text-sm text-primary underline-offset-4 hover:underline'>
+								{data.url}
+							</a>
+						</div>
+					</div>
+					<div className='flex flex-row items-center gap-x-2'>
+						<span className='text-sm font-bold'>6</span>
+						<span className='text-sm text-muted-foreground'>
+							Connections
+						</span>
+					</div>
+				</div>
+			</div>
+		</Fragment>
+	);
+};
+
+export default ProfileView;
