@@ -1,4 +1,4 @@
-export const timeType = (dateTime: string): string => {
+export const formatTimestamp = (dateTime: string): string => {
 	const pastDate = new Date(dateTime);
 	const currentDate = new Date();
 
