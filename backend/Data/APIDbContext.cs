@@ -11,7 +11,7 @@ namespace PulseConnect.Data
     {
         public APIDbContext(DbContextOptions<APIDbContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Users> Users { get; set; }
@@ -27,6 +27,11 @@ namespace PulseConnect.Data
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+
+        /// <summary>
+        /// Gets or sets the collection of sessions in the database.
+        /// </summary>
+        public DbSet<Session> Sessions { get; set; }
 
     }
 }
