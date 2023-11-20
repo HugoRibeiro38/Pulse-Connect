@@ -20,7 +20,7 @@ let password = ''
 
 const changePasswordFormSchema = z.object({
     currentPassword: z.string({
-        required_error: "Please enter your current password."
+        required_error: "Required"
     }),
 
     newPassword: z.string()
