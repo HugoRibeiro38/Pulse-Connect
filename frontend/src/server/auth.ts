@@ -11,10 +11,18 @@ declare module 'next-auth' {
 	interface Session extends DefaultSession {
 		user: {
 			id: string;
+			username: string;
 			email: string;
 			firstName: string;
 			lastName: string;
 			image: string;
+			banner: string;
+			bio: string;
+			city: string;
+			country: string;
+			url: string;
+			createdAt: string;
+			acessToken: string;
 		} & DefaultSession['user'];
 	}
 }
@@ -38,12 +46,19 @@ export const authOptions: NextAuthOptions = {
 			authorize: (credentials) => {
 				if (!credentials) return null;
 				return {
-					id: '123',
-					email: '',
-					name: '',
-					firstName: '',
-					lastName: '',
-					image: '',
+					id: '1',
+					username: 'wallq',
+					email: 'sergio98@outlook.pt',
+					firstName: 'Sérgio',
+					lastName: 'Félix',
+					image: 'https://avatars.githubusercontent.com/u/60108167',
+					banner: 'https://pbs.twimg.com/profile_banners/2904443818/1670360272',
+					bio: '!false geek',
+					city: 'Felgueiras',
+					country: 'Portugal',
+					url: 'https://twitter.com/xeno98g',
+					createdAt: '2023-11-19T17:46:43.887Z',
+					acessToken: '6652990704591814 ',
 				};
 			},
 		}),
