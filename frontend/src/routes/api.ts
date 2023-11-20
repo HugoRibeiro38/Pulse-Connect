@@ -1,4 +1,7 @@
 export const API_ROUTES = {
+	USERS: {
+		GET_USER_BY_ID: (id: string) => `/users/${id}`,
+	},
 	CONNECTIONS: {
 		GET_CONNECTIONS: '/connections',
 		GET_CONNECTIONS_BY_NAME: (name: string) => `/connections/${name}`,
