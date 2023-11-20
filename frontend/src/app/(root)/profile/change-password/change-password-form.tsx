@@ -13,20 +13,10 @@ import {
     FormLabel,
     FormMessage
 } from "@/components/ui/form"
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-} from "@/components/ui/command"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+
+let password = ''
 
 const changePasswordFormSchema = z.object({
     currentPassword: z.string({
@@ -35,11 +25,25 @@ const changePasswordFormSchema = z.object({
 
     newPassword: z.string()
         .min(8, { message: 'Your password must be at least 8 characters long.' })
-        .max(128, { message: 'Your password is too long.' }
-    ),
+        .max(16, { message: 'Your password must be at most 16 characters long.' })
+        .refine((value) => {
+            const hasUppercase = /[A-Z]/.test(value);
+            const hasDigit = /\d/.test(value);
+            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+
+            password = value
+
+            const isValid = hasUppercase && hasDigit && hasSpecialChar;
+
+            return isValid;
+        }, { message: 'Invalid password format' }),
+
     confirmNewPassword: z.string()
-        .refine((val) => val === undefined || val === "", { message: "Passwords do not match" }),
-})
+        .refine((val) => {
+            return val === password;
+        }, { message: "Passwords do not match" }),
+});
+
 
 type ChangePasswordFormValues = z.infer<typeof changePasswordFormSchema>
 
@@ -49,6 +53,7 @@ export function ChangePasswordForm() {
     })
 
     function onSubmit(data: ChangePasswordFormValues) {
+        console.log("Submitted data", data)
         toast({
             title: "You submitted the following values:",
             description: (
@@ -69,7 +74,10 @@ export function ChangePasswordForm() {
                         <FormItem>
                             <FormLabel>Current Password</FormLabel>
                             <FormControl>
-                                <Input type="password" placeholder="Your current password" {...field} />
+                                <>
+                                    <Input type="password" placeholder="Your current password" {...field} />
+                                    <FormMessage>{form.formState.errors.currentPassword?.message}</FormMessage>
+                                </>
                             </FormControl>
                         </FormItem>
                     )}
@@ -81,7 +89,10 @@ export function ChangePasswordForm() {
                         <FormItem>
                             <FormLabel>New Password</FormLabel>
                             <FormControl>
-                                <Input type="password" placeholder="Your new password" {...field} />
+                                <>
+                                    <Input type="password" placeholder="Your new password" {...field} />
+                                    <FormMessage>{form.formState.errors.newPassword?.message}</FormMessage>
+                                </>
                             </FormControl>
                         </FormItem>
                     )}
@@ -93,7 +104,10 @@ export function ChangePasswordForm() {
                         <FormItem>
                             <FormLabel>Confirm New Password</FormLabel>
                             <FormControl>
-                                <Input type="password" placeholder="Repeat your new password" {...field} />
+                                <>
+                                    <Input type="password" placeholder="Repeat your new password" {...field} />
+                                    <FormMessage>{form.formState.errors.confirmNewPassword?.message}</FormMessage>
+                                </>
                             </FormControl>
                         </FormItem>
                     )}
