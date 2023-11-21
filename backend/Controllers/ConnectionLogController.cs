@@ -16,7 +16,7 @@ namespace PulseConnect.Controllers
         }
 
         // POST /connections/logs
-        [HttpPost]
+        [HttpPost("add")]
         public async Task<IActionResult> AddLog([FromBody] ConnectionLog log)
         {
             if (!ModelState.IsValid)
@@ -46,6 +46,7 @@ namespace PulseConnect.Controllers
 
         // GET /connections/logs?filter[connection]=id_connection
         [HttpGet]
+        [ApiExplorerSettings(GroupName = "LogsByConnection")]
         public async Task<IActionResult> GetLogsByConnection([FromQuery] string filter)
         {
             var logs = await _context.ConnectionLogs
@@ -57,6 +58,7 @@ namespace PulseConnect.Controllers
 
         // GET /connections/logs?filter[date]=yyyymmdd
         [HttpGet]
+        [ApiExplorerSettings(GroupName = "LogsByDate")]
         public async Task<IActionResult> GetLogsByDate([FromQuery] string filter)
         {
             if (DateTime.TryParseExact(filter, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out var parsedDate))
