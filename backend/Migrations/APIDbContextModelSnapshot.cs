@@ -22,67 +22,31 @@ namespace PulseConnect.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-            modelBuilder.Entity("PulseConnect.Models.PasswordReset", b =>
+            modelBuilder.Entity("PulseConnect.Models.ConnectionLog", b =>
                 {
-                    b.Property<string>("ID")
+                    b.Property<string>("ID_Log")
                         .HasColumnType("nvarchar(450)")
-                        .HasColumnName("id");
+                        .HasColumnName("id_log");
 
-                    b.Property<string>("ConfirmNewPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ExpireDate")
+                    b.Property<DateTime>("Action_Date")
                         .HasColumnType("datetime2")
-                        .HasColumnName("Expire_Date");
+                        .HasColumnName("action_date");
 
-                    b.Property<string>("NewPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Token")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Token");
-=======
-            modelBuilder.Entity("PulseConnect.Models.Session", b =>
-                {
-                    b.Property<string>("SessionID")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("Session ID");
+                        .HasColumnName("description");
 
-                    b.Property<DateTime?>("SessionEndTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Session End Time");
-
-                    b.Property<DateTime>("SessionStartTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Session Start Time");
-
-                    b.Property<string>("SessionToken")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Session Token");
->>>>>>> 146-user-session-management
-
-                    b.Property<string>("UserID")
+                    b.Property<string>("ID_Connection")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-<<<<<<< HEAD
-                        .HasColumnName("user_id");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("id_connection");
 
-                    b.Property<string>("currentPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("ID_Log");
 
-                    b.HasKey("ID");
+                    b.ToTable("ConnectionLog");
+                });
 
-                    b.HasIndex("UserID");
-
-                    b.ToTable("PasswordReset");
-=======
             modelBuilder.Entity("PulseConnect.Models.Connections", b =>
                 {
                     b.Property<string>("ID_Connection")
@@ -110,8 +74,69 @@ namespace PulseConnect.Migrations
                     b.HasKey("ID_Connection");
 
                     b.ToTable("Connections");
->>>>>>> 47fdeff0e519e238bb4737fa2097eeb4863eb5b8
-=======
+                });
+
+            modelBuilder.Entity("PulseConnect.Models.PasswordReset", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("ConfirmNewPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Expire_Date");
+
+                    b.Property<string>("NewPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Token");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("user_id");
+
+                    b.Property<string>("currentPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("PasswordReset");
+                });
+
+            modelBuilder.Entity("PulseConnect.Models.Session", b =>
+                {
+                    b.Property<string>("SessionID")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("Session ID");
+
+                    b.Property<DateTime?>("SessionEndTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Session End Time");
+
+                    b.Property<DateTime>("SessionStartTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Session Start Time");
+
+                    b.Property<string>("SessionToken")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Session Token");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("User ID");
 
                     b.HasKey("SessionID");
@@ -119,7 +144,6 @@ namespace PulseConnect.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Sessions");
->>>>>>> 146-user-session-management
                 });
 
             modelBuilder.Entity("PulseConnect.Models.Users", b =>
@@ -190,16 +214,9 @@ namespace PulseConnect.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
-<<<<<<< HEAD
-<<<<<<< HEAD
                 });
 
             modelBuilder.Entity("PulseConnect.Models.PasswordReset", b =>
-=======
-                });
-
-            modelBuilder.Entity("PulseConnect.Models.Session", b =>
->>>>>>> 146-user-session-management
                 {
                     b.HasOne("PulseConnect.Models.Users", "User")
                         .WithMany()
@@ -208,11 +225,17 @@ namespace PulseConnect.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-<<<<<<< HEAD
-=======
->>>>>>> 47fdeff0e519e238bb4737fa2097eeb4863eb5b8
-=======
->>>>>>> 146-user-session-management
+                });
+
+            modelBuilder.Entity("PulseConnect.Models.Session", b =>
+                {
+                    b.HasOne("PulseConnect.Models.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
