@@ -33,5 +33,8 @@ namespace PulseConnect.Data
         /// </summary>
         public DbSet<Session> Sessions { get; set; }
 
+        //ConnectionLog
+        public DbSet<ConnectionLog> ConnectionLogs { get; set; }
+
     }
 }

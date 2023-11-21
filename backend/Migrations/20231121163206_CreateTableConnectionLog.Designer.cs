@@ -12,8 +12,8 @@ using PulseConnect.Data;
 namespace PulseConnect.Migrations
 {
     [DbContext(typeof(APIDbContext))]
-    [Migration("20231114193138_CreateSessionTable")]
-    partial class CreateSessionTable
+    [Migration("20231121163206_CreateTableConnectionLog")]
+    partial class CreateTableConnectionLog
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,99 @@ namespace PulseConnect.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("PulseConnect.Models.ConnectionLog", b =>
+                {
+                    b.Property<string>("ID_Log")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("id_log");
+
+                    b.Property<DateTime>("Action_Date")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("action_date");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("ID_Connection")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("id_connection");
+
+                    b.HasKey("ID_Log");
+
+                    b.ToTable("ConnectionLog");
+                });
+
+            modelBuilder.Entity("PulseConnect.Models.Connections", b =>
+                {
+                    b.Property<string>("ID_Connection")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("id_connection");
+
+                    b.Property<DateTime>("Connection_Date")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("connection_date");
+
+                    b.Property<int>("Connection_Status")
+                        .HasColumnType("int")
+                        .HasColumnName("connection_status");
+
+                    b.Property<string>("ID_User_1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("id_user_1");
+
+                    b.Property<string>("ID_User_2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("id_user_2");
+
+                    b.HasKey("ID_Connection");
+
+                    b.ToTable("Connections");
+                });
+
+            modelBuilder.Entity("PulseConnect.Models.PasswordReset", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("ConfirmNewPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Expire_Date");
+
+                    b.Property<string>("NewPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Token");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("user_id");
+
+                    b.Property<string>("currentPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("PasswordReset");
+                });
 
             modelBuilder.Entity("PulseConnect.Models.Session", b =>
                 {
@@ -124,6 +217,17 @@ namespace PulseConnect.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("PulseConnect.Models.PasswordReset", b =>
+                {
+                    b.HasOne("PulseConnect.Models.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PulseConnect.Models.Session", b =>
