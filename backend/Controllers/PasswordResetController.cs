@@ -3,9 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PulseConnect.Data;
 using PulseConnect.Models;
+using System.Net;
+using System.Net.Mail;
 
 namespace PulseConnect.Controllers
 {
+
+    [ApiController]
+    [Route("api/[controller]")]
     public class PasswordResetController : Controller
     {
         // Declarado contexto da base de dados para conseguir interagir com ela 
@@ -22,13 +27,50 @@ namespace PulseConnect.Controllers
         }
 
 
+        [HttpPost("request-password-reset")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RequestPasswordReset([FromBody] String email)
+        {
+            // Verificar se o e-mail existe na base de dados
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user != null)
+            {
+                // Gera um token exclusivo
+                var resetToken = Guid.NewGuid().ToString();
+
+                
+                var expireDate = DateTime.UtcNow.AddMinutes(15);
+
+                // Armazena o token na base de dados
+                var resetRequest = new PasswordReset
+                {
+                    UserID = user.ID,
+                    Token = resetToken,
+                    ExpireDate = expireDate
+                };
+
+                _context.PasswordResets.Add(resetRequest);
+                await _context.SaveChangesAsync();
+
+                // Envie um e-mail com o link de redefinição
+                SendResetPasswordEmail(user.UserEmail, resetToken);
+
+                // Retornar dados, por exemplo, o token gerado
+                return Ok(new { Token = resetToken });
+            }
+
+            // Se o e-mail não for encontrado, retorne um status indicando que a solicitação foi bem-sucedida
+            return Ok(new { Success = true });
+        }
+
+
 
         //Assegura que os dados vão para o servidor de acordo com um determinado token de validação
         // Gerado pelo servidor e único para cada user e sessão
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> ResetPassword(string token, string currentPassword, string newPassword, string confirmNewPassword)
+        public async Task<IActionResult> ResetPassword(string token, string currentPassword, string newPassword)
         {
             if (ModelState.IsValid)
             {
@@ -40,12 +82,6 @@ namespace PulseConnect.Controllers
                 {
                     // Token inválido ou expirado
                     return BadRequest("Token inválido ou expirado.");
-                }
-
-                // Verifica se a nova senha e a confirmação são iguais
-                if (newPassword != confirmNewPassword)
-                {
-                    return BadRequest("A confirmação da senha não coincide com a nova senha.");
                 }
 
                 // Obtenha o usuário associado à solicitação de redefinição
@@ -86,6 +122,32 @@ namespace PulseConnect.Controllers
 
             return BadRequest("Falha na redefinição de senha.");
         }
+
+
+        private void SendResetPasswordEmail(string userEmail, string resetToken)
+        {
+            
+            var resetUrl = $"https://localhost/PasswordReset/ResetPassword?token={resetToken}";
+
+            var smtpClient = new SmtpClient()
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("lds.pulseconnect@gmail.com", "frmu pvee jngb bmkn"),
+                EnableSsl = true,
+        };
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("lds.pulseconnect@gmail.com"),
+                Subject = "Redefinição de Senha",
+                Body = $"Clique no link a seguir para redefinir sua senha: {resetUrl}",
+                IsBodyHtml = false
+            };
+
+            mailMessage.To.Add(userEmail);
+
+            smtpClient.Send(mailMessage);
+        }
+
 
     }
 
