@@ -92,6 +92,12 @@ namespace PulseConnect.Middleware
             await context.Response.WriteAsync("Falha na autenticação.");
         }
 
+
+        /// <summary>
+        /// Handler for register function
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns>a response, 200 if all its ok or 400 for fail </returns>
         private async Task HandleRegisterAsync(HttpContext context)
         {
             var username = context.Request.Form["username"];
@@ -114,6 +120,11 @@ namespace PulseConnect.Middleware
             await context.Response.WriteAsync("Falha no registro.");
         }
 
+        /// <summary>
+        /// Function to validate token received from header from frontend
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         private async Task<bool> IsTokenValidAsync(HttpContext context)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PulseConnect.Data;
 using PulseConnect.Models;
 using PulseConnect.Middleware;
 
@@ -22,6 +20,7 @@ namespace PulseConnect.Controllers.Auth
             _tokenService = tokenService;
         }
 
+       
         /// <summary>
         /// Login Function
         /// </summary>
