@@ -4,7 +4,7 @@ import { API_ROUTES } from '@/routes/api';
 import { type User } from '@/types/Users';
 import { fetchData } from '@/utils/fetch-data';
 
-export const getUserById = async (id: string): Promise<User | null> => {
+export const getUserById = async (id: string): Promise<User> => {
 	// const session = await getSession();
 
 	// if (!session) {

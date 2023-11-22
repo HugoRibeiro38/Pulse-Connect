@@ -9,12 +9,23 @@ export const getConnections = async (): Promise<Connections> => {
 	);
 };
 
-export const searchConnection = async (name: string) => {
+export const searchConnection = async (name: string): Promise<Connections> => {
 	return fetchData(
 		`${
 			process.env.NEXT_PUBLIC_API_URL
 		}${API_ROUTES.CONNECTIONS.GET_CONNECTIONS_BY_NAME(name)}`,
 		'GET',
+	);
+};
+
+export const createConnection = async (id: string) => {
+	return fetchData(
+		`${
+			process.env.NEXT_PUBLIC_API_URL
+		}${API_ROUTES.CONNECTIONS.CREATE_CONNECTIONS_BY_ID(id)}`,
+		'POST',
+		{},
+		{ id },
 	);
 };
 

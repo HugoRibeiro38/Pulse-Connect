@@ -2,12 +2,14 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { toast } from '@/components/ui/use-toast';
 import {
+	createConnection,
 	deleteConnection,
 	deletePendingConnection,
 	getConnections,
 	getPendingConnections,
 } from '@/services/Connections';
 import { type Connection, type Connections } from '@/types/Connection';
+import { type User } from '@/types/Users';
 
 export const KEYS = {
 	CONNECTIONS: ['connections'],
@@ -18,6 +20,46 @@ export const useGetConnections = () => {
 	return useQuery<Connections>({
 		queryKey: KEYS.CONNECTIONS,
 		queryFn: getConnections,
+	});
+};
+
+export const useCreateConnection = (userId: string) => {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: async (userId: string) => createConnection(userId),
+		onMutate: async (userId: string) => {
+			await queryClient.cancelQueries({ queryKey: ['user', userId] });
+			const previousUser = queryClient.getQueryData<User>([
+				'user',
+				userId,
+			]);
+			queryClient.setQueriesData(
+				{ queryKey: ['user', userId] },
+				(old) => old && { ...old, isPending: true },
+			);
+			return { previousUser };
+		},
+		onError: (_error, _variables, context) => {
+			queryClient.setQueriesData(
+				{ queryKey: ['user', userId] },
+				context?.previousUser,
+			);
+			toast({
+				variant: 'destructive',
+				title: 'Uh oh! Something went wrong.',
+				description:
+					'There was a problem with your connection request.',
+			});
+		},
+		onSuccess: (_data, _variables, _context) => {
+			toast({
+				title: 'Success!',
+				description: 'The connection request has been sent.',
+			});
+		},
+		onSettled: async (_data, _error, _variables, _context) => {
+			await queryClient.invalidateQueries({ queryKey: ['user', userId] });
+		},
 	});
 };
 
