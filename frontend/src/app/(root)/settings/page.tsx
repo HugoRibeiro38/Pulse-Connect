@@ -1,11 +1,10 @@
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
 import { SettingsItem } from '@/components/Settings';
-import { Title } from '@/components/Title';
-import { Button } from '@/components/ui/button';
+import { BackButton } from '@/components/shared/BackButton';
+import { Title } from '@/components/shared/Title';
+import { Separator } from '@/components/ui/separator';
 import { type SettingsItemProps, settingsItems } from '@/data/settings';
 import { APP_ROUTES } from '@/routes/app';
 
@@ -16,13 +15,12 @@ export const metadata: Metadata = {
 const SettingsPage: NextPage = (): React.ReactNode => {
 	return (
 		<Fragment>
-			<div className='flex flex-row items-center justify-between gap-x-4'>
-				<Button variant='ghost' size='icon' asChild>
-					<Link href={APP_ROUTES.HOME}>
-						<ArrowLeft />
-					</Link>
-				</Button>
-				<Title title='Settings' />
+			<div className='flex w-full flex-col items-start justify-between gap-y-4'>
+				<div className='flex flex-row items-center justify-between gap-x-4'>
+					<BackButton url={APP_ROUTES.HOME} />
+					<Title title='Settings' />
+				</div>
+				<Separator />
 			</div>
 			<div className='flex w-full flex-col items-start justify-between gap-8'>
 				{Object.keys(settingsItems).map(
@@ -38,7 +36,7 @@ const SettingsPage: NextPage = (): React.ReactNode => {
 									{
 										href,
 										label,
-										subLabel,
+										text,
 										icon,
 									}: SettingsItemProps,
 									index: number,
@@ -47,7 +45,7 @@ const SettingsPage: NextPage = (): React.ReactNode => {
 										key={`${label}-${index}`}
 										href={href}
 										label={label}
-										subLabel={subLabel}
+										text={text}
 										icon={icon}
 									/>
 								),

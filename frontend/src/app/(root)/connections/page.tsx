@@ -3,8 +3,6 @@ import {
 	HydrationBoundary,
 	QueryClient,
 } from '@tanstack/react-query';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
@@ -12,8 +10,8 @@ import {
 	ConnectionsView,
 	PendingConnectionsView,
 } from '@/components/Connections/';
-import { Title } from '@/components/Title';
-import { Button } from '@/components/ui/button';
+import { BackButton } from '@/components/shared/BackButton';
+import { Title } from '@/components/shared/Title';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { KEYS } from '@/hooks/useConnections';
@@ -50,11 +48,7 @@ const ConnectionsPage: NextPage<ConnectionsPageProps> = async () => {
 		<Fragment>
 			<div className='flex w-full flex-col items-start justify-between md:flex-row md:items-center'>
 				<div className='flex flex-row items-center justify-between gap-x-4'>
-					<Button variant='ghost' size='icon' asChild>
-						<Link href={APP_ROUTES.HOME}>
-							<ArrowLeft />
-						</Link>
-					</Button>
+					<BackButton url={APP_ROUTES.HOME} />
 					<Title title='Connections' />
 				</div>
 				<div className='div flex flex-row items-center justify-between gap-x-2'>
