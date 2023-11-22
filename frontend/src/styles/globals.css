@@ -59,4 +59,12 @@
 	.nightMode {
 		filter: invert(1) hue-rotate(180deg);
 	}
+
+	.specialBorderRadiusTop {
+		border-radius: calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0 0;
+	}
+
+	.specialBorderRadiusBottom {
+		border-radius: 0 0 calc(var(--radius) - 2px) calc(var(--radius) - 2px);
+	}
 }

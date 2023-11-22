@@ -11,6 +11,7 @@ export type User = {
 	city: string;
 	country: string;
 	url: string;
+	numConnections: number;
 	createdAt: string;
 };
 
