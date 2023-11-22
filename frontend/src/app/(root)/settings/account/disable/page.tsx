@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
-import { Title } from '@/components/Title';
+import { Title } from '@/components/shared/Title';
 import { Button } from '@/components/ui/button';
 import { SUPPORT_EMAIL } from '@/data/constants';
 import { APP_ROUTES } from '@/routes/app';
