@@ -20,7 +20,7 @@ import { APP_ROUTES } from '@/routes/app';
 export type SettingsItemProps = {
 	href: string;
 	label: string;
-	subLabel: string;
+	text: string;
 	icon: LucideIcon;
 };
 
@@ -31,29 +31,25 @@ export const settingsItems: SettingsItemsProps = {
 		{
 			href: APP_ROUTES.SETTINGS.GENERAL.ACCOUNT,
 			label: 'Account Informations',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Update your account information and personalize your profile.',
 			icon: User,
 		},
 		{
 			href: APP_ROUTES.SETTINGS.GENERAL.NOTIFICATIONS,
 			label: 'Notifications',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Configure your notification settings for a personalized experience.',
 			icon: Bell,
 		},
 		{
 			href: APP_ROUTES.SETTINGS.GENERAL.APPEARANCE,
 			label: 'Appearance',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Customize the appearance of the application to suit your preferences.',
 			icon: Contrast,
 		},
 		{
 			href: APP_ROUTES.SETTINGS.GENERAL.LANGUAGE,
 			label: 'Language',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Choose your preferred language for the application interface.',
 			icon: Languages,
 		},
 	],
@@ -61,29 +57,25 @@ export const settingsItems: SettingsItemsProps = {
 		{
 			href: APP_ROUTES.SETTINGS.ACCOUNT.INTEGRATIONS,
 			label: 'Integrations',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Integrate third-party services to enhance your account functionality.',
 			icon: AtSign,
 		},
 		{
 			href: APP_ROUTES.SETTINGS.ACCOUNT.EMAIL,
 			label: 'Change Email',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Update your email address associated with your account.',
 			icon: Mail,
 		},
 		{
 			href: APP_ROUTES.SETTINGS.ACCOUNT.PASSWORD,
 			label: 'Change Password',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Secure your account by regularly updating your password.',
 			icon: KeyRound,
 		},
 		{
 			href: APP_ROUTES.SETTINGS.ACCOUNT.DISABLE,
 			label: 'Disable Account',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Temporarily disable your account while retaining your data.',
 			icon: HeartCrack,
 		},
 	],
@@ -91,36 +83,31 @@ export const settingsItems: SettingsItemsProps = {
 		{
 			href: APP_ROUTES.ABOUT,
 			label: 'About Us',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Learn more about our mission, vision, and the team behind the application.',
 			icon: Info,
 		},
 		{
-			href: APP_ROUTES.SETTINGS.OTHERS.HELP,
+			href: APP_ROUTES.HELP,
 			label: 'Help & Support',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Get assistance and support for any issues or inquiries you may have.',
 			icon: HelpCircle,
 		},
 		{
 			href: APP_ROUTES.TERMS,
 			label: 'Terms & Conditions',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Read and understand the terms and conditions governing the use of the application.',
 			icon: HeartHandshake,
 		},
 		{
 			href: APP_ROUTES.PRIVACY,
 			label: 'Privacy Policy',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Understand how your data is handled and protected by reviewing our privacy policy.',
 			icon: Cookie,
 		},
 		{
 			href: APP_ROUTES.AUTH.SIGNOUT,
 			label: 'Sign Out',
-			subLabel:
-				'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+			text: 'Securely sign out of your account to protect your privacy.',
 			icon: LogOut,
 		},
 	],

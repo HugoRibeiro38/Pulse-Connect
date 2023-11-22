@@ -7,6 +7,7 @@ export const APP_ROUTES = {
 	ABOUT: '/about',
 	SEARCH: '/search',
 	FAQ: '/faq',
+	HELP: '/help',
 	CONTACT: '/contact',
 	TERMS: '/terms',
 	PRIVACY: '/privacy',
@@ -24,9 +25,6 @@ export const APP_ROUTES = {
 			EMAIL: '/settings/account/email',
 			PASSWORD: '/settings/account/password',
 			DISABLE: '/settings/account/disable',
-		},
-		OTHERS: {
-			HELP: '/settings/others/help',
 		},
 	},
 	AUTH: {

@@ -29,7 +29,7 @@ const SidebarItem: React.FunctionComponent<SidebarItemProps> = ({
 				className='h-5 w-5 dark:invert'
 			/>
 			<span
-				className={clsx('text-xs font-normal', {
+				className={clsx('text-xs font-medium', {
 					'underline decoration-primary decoration-solid decoration-2 underline-offset-4':
 						pathname === href,
 					'no-underline': pathname !== href,
