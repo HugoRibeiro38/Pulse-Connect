@@ -4,14 +4,14 @@ import Link from 'next/link';
 type SettingsItemProps = {
 	href: string;
 	label: string;
-	subLabel: string;
+	text: string;
 	icon: LucideIcon;
 };
 
 const SettingsItem: React.FunctionComponent<SettingsItemProps> = ({
 	href,
 	label,
-	subLabel,
+	text,
 	icon: Icon,
 }): React.ReactNode => {
 	return (
@@ -25,7 +25,7 @@ const SettingsItem: React.FunctionComponent<SettingsItemProps> = ({
 				<div className='flex flex-col items-start justify-between text-base font-normal'>
 					{label}
 					<small className='text-xs leading-none text-muted-foreground'>
-						{subLabel}
+						{text}
 					</small>
 				</div>
 			</div>
