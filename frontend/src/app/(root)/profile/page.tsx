@@ -1,43 +1,36 @@
 'use client';
 
-import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
-import {
-	ArrowLeft,
-	CalendarDays,
-	Link as LinkIcon,
-	Mail,
-	MapPin,
-} from 'lucide-react';
+import { CalendarDays, Link as LinkIcon, Mail, MapPin } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
-import { Title } from '@/components/Title';
+import { BackButton } from '@/components/shared/BackButton';
+import { Title } from '@/components/shared/Title';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
 	Dialog,
 	DialogClose,
 	DialogContent,
+	DialogDescription,
 	DialogFooter,
 	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog';
+import { Separator } from '@/components/ui/separator';
 import { APP_ROUTES } from '@/routes/app';
 
 const ProfilePage: NextPage = (): React.ReactNode => {
 	return (
 		<Fragment>
-			<div className='flex w-full flex-col items-start justify-between md:flex-row md:items-center'>
+			<div className='flex w-full flex-col items-start justify-between gap-y-4'>
 				<div className='flex flex-row items-center justify-between gap-x-4'>
-					<Button variant='ghost' size='icon' asChild>
-						<Link href={APP_ROUTES.HOME}>
-							<ArrowLeft />
-						</Link>
-					</Button>
+					<BackButton url={APP_ROUTES.HOME} />
 					<Title title='Profile' />
 				</div>
+				<Separator />
 			</div>
 			<div className='relative w-full'>
 				<Dialog>

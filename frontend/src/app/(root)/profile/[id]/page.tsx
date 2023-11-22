@@ -1,12 +1,10 @@
 import { QueryClient } from '@tanstack/react-query';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
 import { ProfileView } from '@/components/Profile';
-import { Title } from '@/components/Title';
-import { Button } from '@/components/ui/button';
+import { BackButton } from '@/components/shared/BackButton';
+import { Title } from '@/components/shared/Title';
 import { APP_ROUTES } from '@/routes/app';
 import { getUserById } from '@/services/Users';
 
@@ -16,7 +14,6 @@ export const metadata: Metadata = {
 
 type ProfilePageProps = {
 	params: { id: string };
-	searchParams: Record<string, string | string[] | undefined>;
 };
 
 const ProfilePage: NextPage<ProfilePageProps> = async ({ params }) => {
@@ -28,17 +25,11 @@ const ProfilePage: NextPage<ProfilePageProps> = async ({ params }) => {
 
 	return (
 		<Fragment>
-			<div className='flex w-full flex-col items-start justify-between md:flex-row md:items-center'>
-				<div className='flex flex-row items-center justify-between gap-x-4'>
-					<Button variant='ghost' size='icon' asChild>
-						<Link href={APP_ROUTES.HOME}>
-							<ArrowLeft />
-						</Link>
-					</Button>
-					<Title title='Profile' />
-				</div>
+			<div className='flex flex-row items-center justify-between gap-x-4'>
+				<BackButton url={APP_ROUTES.HOME} />
+				<Title title='Profile' />
 			</div>
-			<ProfileView id={params.id} />
+			<ProfileView userId={params.id} />
 		</Fragment>
 	);
 };
