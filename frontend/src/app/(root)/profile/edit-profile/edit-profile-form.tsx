@@ -1,10 +1,12 @@
 "use client"
 
 import * as z from "zod"
-import { useForm } from "react-hook-form"
+import { useFieldArray, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "@/components/ui/use-toast"
-import { CheckIcon } from "@radix-ui/react-icons"
+import { Button } from "@/components/ui/button"
+import { Textarea } from '@/components/ui/textarea'
+import { cn } from "@/lib/utils"
 import {
     Form,
     FormControl,
@@ -15,51 +17,88 @@ import {
     FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Button, buttonVariants } from "@/components/ui/button"
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from '@/components/ui/popover';
-import { cn } from "@/lib/utils"
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-} from "@/components/ui/command"
-
-const displayStatusOptions = [
-    { label: 'Online', value: 'online' },
-    { label: 'Offline', value: 'offline' },
-    { label: 'Idle', value: 'idle' }
-] as const
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
+} from '@/components/ui/select'
+import { useState } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const editProfileFormSchema = z.object({
-    firstName: z.string().max(20, 'Your name must not have more than 20 characters'),
-    lastName: z.string().max(20, 'Your name must not have more than 20 characters'),
-    bio: z.string().max(200, 'Your name must not have more than 200 characters'),
-    status: z.string()
+    firstName: z.string()
+        .max(20, 'Your name must not have more than 20 characters')
+        .min(2, 'Your name must have at least 2 characters'),
+
+    lastName: z.string()
+        .max(20, 'Your name must not have more than 20 characters')
+        .min(2, 'Your name must have at least 2 characters'),
+
+    bio: z.string()
+        .max(200, 'Your name must not have more than 200 characters')
+        .optional(),
+
+    status: z.string().optional(),
+    urls: z.array(z.object({
+        value: z.string().url({ message: 'Please enter a valid URL' })
+    })).optional()
 })
 
 type editProfileFormValues = z.infer<typeof editProfileFormSchema>;
 
+const defaultValues: Partial<editProfileFormValues> = {
+    urls: [
+        { value: 'https://example.com' }
+    ]
+}
+
 export function EditProfileForm() {
     const form = useForm<editProfileFormValues>({
-        resolver: zodResolver(editProfileFormSchema)
+        resolver: zodResolver(editProfileFormSchema),
+        defaultValues,
+        mode: "onChange"
     })
 
+    const { fields, append, remove } = useFieldArray({
+        name: "urls",
+        control: form.control,
+    })
+
+    const [readOnlyFields, setReadOnlyFields] = useState<number[]>([])
+
+
     function onSubmit(data: editProfileFormValues) {
-        console.log('submit data', data);
+        const urls = data.urls || [];
+
+        const readOnlyUrls = readOnlyFields.map(index => urls[index])
+
+        const payload = {
+            ...data,
+            urls: readOnlyUrls
+        }
+
+        console.log('submit data', payload);
         toast({
             title: `Submitted:`,
             description: (
                 <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+                    <code className="text-white">{JSON.stringify(payload, null, 2)}</code>
                 </pre>
             ),
         })
+    }
+
+    const handleAddUrl = () => {
+        setReadOnlyFields((prev) => [...prev, fields.length - 1])
+        append({ value: "" })
+    }
+
+    const handleRemoveUrl = (index: number) => {
+        setReadOnlyFields((prev) => prev.filter((i) => i !== index))
+        remove(index)
     }
 
     return (
@@ -102,69 +141,84 @@ export function EditProfileForm() {
                         <FormItem>
                             <FormLabel>Biography</FormLabel>
                             <FormControl>
-                                <>
-                                    <Input type='text' placeholder='Tell us something about yourself...' {...field} />
-                                    <FormMessage>{form.formState.errors.bio?.message}</FormMessage>
-                                </>
+                                <Textarea
+                                    placeholder="Tell us a little bit about yourself"
+                                    className="resize-none"
+                                    {...field}
+                                />
                             </FormControl>
                         </FormItem>
                     )}
                 />
+                <div>
+                    {fields.map((field, index) => (
+                        <FormField
+                            control={form.control}
+                            key={field.id}
+                            name={`urls.${index}.value`}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className={cn(index !== 0 && "sr-only")}>
+                                        URLs
+                                    </FormLabel>
+                                    <FormDescription className={cn(index !== 0 && "sr-only")}>
+                                        Add links to your website, blog or social media profiles.
+                                    </FormDescription>
+                                    <FormControl>
+                                        <div className="flex items-center space-x-5">
+                                            <Input
+                                                {...field}
+                                                readOnly={readOnlyFields.includes(index)}
+                                                className={readOnlyFields.includes(index) ? "text-muted-foreground" : ""}
+                                            />
+                                            {readOnlyFields.includes(index) && (
+                                                <button
+                                                    type="button"
+                                                    className="ml-2 text-muted-foreground"
+                                                    onClick={() => handleRemoveUrl(index)}
+                                                >
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                    ))}
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="mt-2"
+                        onClick={handleAddUrl}
+                    >
+                        Add URL
+                    </Button>
+                </div>
                 <FormField
                     control={form.control}
                     name="status"
                     render={({ field }) => (
                         <FormItem className="flex flex-col">
                             <FormLabel>Status</FormLabel>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <FormControl>
-                                        <Button
-                                            variant="outline"
-                                            role="combobox"
-                                            className={cn(
-                                                "w-[200px] justify-between",
-                                                !field.value && "text-muted-foreground"
-                                            )}
-                                        >
-                                            {field.value ? displayStatusOptions.find((option) => option.value === field.value)?.label : "Select option"}
-                                        </Button>
-                                    </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-[200px] p-0">
-                                    <Command>
-                                        <CommandInput>
-                                            <CommandGroup>
-                                                {displayStatusOptions.map((option) => (
-                                                    <CommandItem
-                                                        value={option.label}
-                                                        key={option.value}
-                                                        onSelect={() => {
-                                                            form.setValue("status", option.value)
-                                                        }}
-                                                    >
-                                                        <CheckIcon
-                                                            className={cn(
-                                                                "mr-2 h-4 w-4",
-                                                                option.value === field.value
-                                                                    ? "opacity-100"
-                                                                    : "opacity-0"
-                                                            )}
-                                                        />
-                                                        {option.label}
-                                                    </CommandItem>
-                                                ))}
-                                            </CommandGroup>
-                                        </CommandInput>
-                                    </Command>
-                                </PopoverContent>
-                            </Popover>
-                            <FormDescription>
-                                This is the activity status that will be displayed in your profile.
-                            </FormDescription>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select an activity status" />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    <SelectItem value="online">Online</SelectItem>
+                                    <SelectItem value="offline">Offline</SelectItem>
+                                    <SelectItem value="idle">Idle</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <FormDescription>You can select a custom activity status</FormDescription>
                         </FormItem>
                     )}
                 />
+                <Button type="submit">Update profile</Button>
             </form>
         </Form>
     )
