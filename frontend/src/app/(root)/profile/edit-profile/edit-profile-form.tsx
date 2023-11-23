@@ -43,9 +43,14 @@ const editProfileFormSchema = z.object({
 
     status: z.string().optional(),
     urls: z.array(z.object({
-        value: z.string().url({ message: 'Please enter a valid URL' })
+        value: z.string().refine((url) => !url || isURL(url), { message: 'Please enter a valid URL' })
     })).optional()
 })
+
+function isURL(url: string): boolean {
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlRegex.test(url);
+}
 
 type editProfileFormValues = z.infer<typeof editProfileFormSchema>;
 
@@ -182,6 +187,7 @@ export function EditProfileForm() {
                                             )}
                                         </div>
                                     </FormControl>
+                                    <FormMessage>{(form.formState.errors as any)[`urls.${index}.value`]?.message}</FormMessage>
                                 </FormItem>
                             )}
                         />
