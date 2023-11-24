@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
 
-import { Chatbar } from '@/components/Chatbar';
-import { Footer } from '@/components/Footer';
-import { Navbar } from '@/components/Navbar/';
+import { Chatbar } from '@/components/layout/Chatbar';
+import { Footer } from '@/components/layout/Footer';
+import { Navbar } from '@/components/layout/Navbar';
 import { Sidebar } from '@/components/Sidebar/';
 
 type FeedLayoutProps = {

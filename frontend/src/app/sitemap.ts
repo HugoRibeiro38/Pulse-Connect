@@ -133,7 +133,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 			priority: 0.5,
 		},
 		{
-			url: `${URL}${APP_ROUTES.SETTINGS.OTHERS.HELP}`,
+			url: `${URL}${APP_ROUTES.HELP}`,
 			lastModified: '10-30-2023',
 			changeFrequency: 'never',
 			priority: 0.5,

@@ -4,15 +4,16 @@ import {
 	HelpCircle,
 	Languages,
 	LogOut,
+	Search,
 	Settings,
 	User,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { SearchBar } from '@/components/shared/SearchBar';
 import { ThemeButton } from '@/components/ThemeButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -26,40 +27,44 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
 import { APP_ROUTES } from '@/routes/app';
 
 const Navbar: React.FunctionComponent = (): React.ReactNode => {
 	return (
-		<header className='flex w-full flex-row items-center justify-between border-b border-input p-8'>
-			<Link href='/'>
+		<header className='flex w-full flex-row items-center justify-between border-b border-border p-8'>
+			<Link href={APP_ROUTES.HOME}>
 				<Image
-					src='/logo/Logo Transparent Text Black.svg'
+					src='assets/logo/Logo Transparent.svg'
 					alt='Logo'
-					width={32}
-					height={32}
+					width={128}
+					height={40}
 					priority={true}
-					className='dark:nightMode h-8 w-auto'
+					className='h-10 w-auto'
 				/>
 			</Link>
-			<SearchBar size='lg' />
+			<div className='flex w-full max-w-sm flex-row items-center justify-between gap-x-2'>
+				<Input type='text' placeholder='Search...' />
+				<Button variant='default' size='icon' className='shrink-0'>
+					<Search className='h-4 w-4' />
+				</Button>
+			</div>
 			<DropdownMenu>
-				<DropdownMenuTrigger
-					asChild
-					className='flex cursor-pointer flex-row items-center justify-between space-x-2 whitespace-nowrap rounded-md p-2  align-middle ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'>
-					<div>
+				<DropdownMenuTrigger asChild>
+					<div className='flex cursor-pointer flex-row items-center justify-between gap-x-2'>
 						<Avatar>
 							<AvatarImage
-								src={'/logo/Logo Transparent.svg'}
+								src='assets/logo/Logo Transparent.svg'
 								alt='Avatar'
 							/>
 							<AvatarFallback>PC</AvatarFallback>
 						</Avatar>
-						<div className='flex flex-col items-start justify-between align-middle'>
+						<div className='flex flex-col items-start justify-between'>
 							<span className='text-base font-medium'>
 								Pulse Connect
 							</span>
-							<div className='flex flex-row items-center justify-between space-x-1 align-middle'>
-								<div className='h-3 w-3 rounded-full bg-emerald-500' />{' '}
+							<div className='flex flex-row items-center justify-between gap-x-2'>
+								<div className='h-3 w-3 rounded-full bg-emerald-500' />
 								<span className='text-xs font-normal text-muted-foreground'>
 									Online
 								</span>
@@ -68,24 +73,16 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 						<ChevronDown className='h-5 w-5' />
 					</div>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent className='w-56'>
+				<DropdownMenuContent className='w-48'>
 					<DropdownMenuLabel>My Account</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<DropdownMenuGroup>
 						<DropdownMenuItem>
 							<Link
 								href={APP_ROUTES.PROFILE}
-								className='flex flex-row justify-center align-middle'>
+								className='flex w-full flex-row items-center justify-start'>
 								<User className='mr-2 h-4 w-4' />
 								Profile
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem>
-							<Link
-								href={APP_ROUTES.SETTINGS.ROOT}
-								className='flex flex-row justify-center align-middle'>
-								<Settings className='mr-2 h-4 w-4' />
-								Settings
 							</Link>
 						</DropdownMenuItem>
 					</DropdownMenuGroup>
@@ -98,21 +95,21 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 							</DropdownMenuSubTrigger>
 							<DropdownMenuPortal>
 								<DropdownMenuSubContent>
-									<DropdownMenuItem className='cursor-pointer'>
+									<DropdownMenuItem>
 										<ThemeButton
 											themeType='light'
 											title='Light'
 											icon='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXN1biI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNCIvPjxwYXRoIGQ9Ik0xMiAydjIiLz48cGF0aCBkPSJNMTIgMjB2MiIvPjxwYXRoIGQ9Im00LjkzIDQuOTMgMS40MSAxLjQxIi8+PHBhdGggZD0ibTE3LjY2IDE3LjY2IDEuNDEgMS40MSIvPjxwYXRoIGQ9Ik0yIDEyaDIiLz48cGF0aCBkPSJNMjAgMTJoMiIvPjxwYXRoIGQ9Im02LjM0IDE3LjY2LTEuNDEgMS40MSIvPjxwYXRoIGQ9Im0xOS4wNyA0LjkzLTEuNDEgMS40MSIvPjwvc3ZnPg=='
 										/>
 									</DropdownMenuItem>
-									<DropdownMenuItem className='cursor-pointer'>
+									<DropdownMenuItem>
 										<ThemeButton
 											themeType='dark'
 											title='Dark'
 											icon='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1vb24iPjxwYXRoIGQ9Ik0xMiAzYTYgNiAwIDAgMCA5IDkgOSA5IDAgMSAxLTktOVoiLz48L3N2Zz4='
 										/>
 									</DropdownMenuItem>
-									<DropdownMenuItem className='cursor-pointer'>
+									<DropdownMenuItem>
 										<ThemeButton
 											themeType='system'
 											title='System'
@@ -140,14 +137,29 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 						</DropdownMenuSub>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator />
-					<DropdownMenuItem className='cursor-pointer'>
-						<HelpCircle className='mr-2 h-4 w-4' />
-						Help
-					</DropdownMenuItem>
-					<DropdownMenuItem className='cursor-pointer'>
+					<DropdownMenuGroup>
+						<DropdownMenuItem>
+							<Link
+								href={APP_ROUTES.SETTINGS.ROOT}
+								className='flex w-full flex-row items-center justify-start'>
+								<Settings className='mr-2 h-4 w-4' />
+								Settings
+							</Link>
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<Link
+								href={APP_ROUTES.HELP}
+								className='flex w-full flex-row items-center justify-start'>
+								<HelpCircle className='mr-2 h-4 w-4' />
+								Help
+							</Link>
+						</DropdownMenuItem>
+					</DropdownMenuGroup>
+					<DropdownMenuSeparator />
+					<DropdownMenuItem>
 						<Link
 							href={APP_ROUTES.AUTH.SIGNOUT}
-							className='flex w-full flex-row items-center justify-start align-middle'>
+							className='flex w-full flex-row items-center justify-start'>
 							<LogOut className='mr-2 h-4 w-4' />
 							Sign Out
 						</Link>

@@ -18,8 +18,8 @@ import {
 import { APP_ROUTES } from '@/routes/app';
 
 export type SettingsItemProps = {
-	href: string;
-	label: string;
+	url: string;
+	title: string;
 	text: string;
 	icon: LucideIcon;
 };
@@ -29,84 +29,84 @@ export type SettingsItemsProps = Record<string, SettingsItemProps[]>;
 export const settingsItems: SettingsItemsProps = {
 	General: [
 		{
-			href: APP_ROUTES.SETTINGS.GENERAL.ACCOUNT,
-			label: 'Account Informations',
+			url: APP_ROUTES.SETTINGS.GENERAL.ACCOUNT,
+			title: 'Account Informations',
 			text: 'Update your account information and personalize your profile.',
 			icon: User,
 		},
 		{
-			href: APP_ROUTES.SETTINGS.GENERAL.NOTIFICATIONS,
-			label: 'Notifications',
+			url: APP_ROUTES.SETTINGS.GENERAL.NOTIFICATIONS,
+			title: 'Notifications',
 			text: 'Configure your notification settings for a personalized experience.',
 			icon: Bell,
 		},
 		{
-			href: APP_ROUTES.SETTINGS.GENERAL.APPEARANCE,
-			label: 'Appearance',
+			url: APP_ROUTES.SETTINGS.GENERAL.APPEARANCE,
+			title: 'Appearance',
 			text: 'Customize the appearance of the application to suit your preferences.',
 			icon: Contrast,
 		},
 		{
-			href: APP_ROUTES.SETTINGS.GENERAL.LANGUAGE,
-			label: 'Language',
+			url: APP_ROUTES.SETTINGS.GENERAL.LANGUAGE,
+			title: 'Language',
 			text: 'Choose your preferred language for the application interface.',
 			icon: Languages,
 		},
 	],
 	Account: [
 		{
-			href: APP_ROUTES.SETTINGS.ACCOUNT.INTEGRATIONS,
-			label: 'Integrations',
+			url: APP_ROUTES.SETTINGS.ACCOUNT.INTEGRATIONS,
+			title: 'Integrations',
 			text: 'Integrate third-party services to enhance your account functionality.',
 			icon: AtSign,
 		},
 		{
-			href: APP_ROUTES.SETTINGS.ACCOUNT.EMAIL,
-			label: 'Change Email',
+			url: APP_ROUTES.SETTINGS.ACCOUNT.EMAIL,
+			title: 'Change Email',
 			text: 'Update your email address associated with your account.',
 			icon: Mail,
 		},
 		{
-			href: APP_ROUTES.SETTINGS.ACCOUNT.PASSWORD,
-			label: 'Change Password',
+			url: APP_ROUTES.SETTINGS.ACCOUNT.PASSWORD,
+			title: 'Change Password',
 			text: 'Secure your account by regularly updating your password.',
 			icon: KeyRound,
 		},
 		{
-			href: APP_ROUTES.SETTINGS.ACCOUNT.DISABLE,
-			label: 'Disable Account',
+			url: APP_ROUTES.SETTINGS.ACCOUNT.DISABLE,
+			title: 'Disable Account',
 			text: 'Temporarily disable your account while retaining your data.',
 			icon: HeartCrack,
 		},
 	],
 	Others: [
 		{
-			href: APP_ROUTES.ABOUT,
-			label: 'About Us',
+			url: APP_ROUTES.ABOUT,
+			title: 'About Us',
 			text: 'Learn more about our mission, vision, and the team behind the application.',
 			icon: Info,
 		},
 		{
-			href: APP_ROUTES.HELP,
-			label: 'Help & Support',
+			url: APP_ROUTES.HELP,
+			title: 'Help & Support',
 			text: 'Get assistance and support for any issues or inquiries you may have.',
 			icon: HelpCircle,
 		},
 		{
-			href: APP_ROUTES.TERMS,
-			label: 'Terms & Conditions',
+			url: APP_ROUTES.TERMS,
+			title: 'Terms & Conditions',
 			text: 'Read and understand the terms and conditions governing the use of the application.',
 			icon: HeartHandshake,
 		},
 		{
-			href: APP_ROUTES.PRIVACY,
-			label: 'Privacy Policy',
+			url: APP_ROUTES.PRIVACY,
+			title: 'Privacy Policy',
 			text: 'Understand how your data is handled and protected by reviewing our privacy policy.',
 			icon: Cookie,
 		},
 		{
-			href: APP_ROUTES.AUTH.SIGNOUT,
-			label: 'Sign Out',
+			url: APP_ROUTES.AUTH.SIGNOUT,
+			title: 'Sign Out',
 			text: 'Securely sign out of your account to protect your privacy.',
 			icon: LogOut,
 		},

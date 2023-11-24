@@ -7,7 +7,6 @@ export const API_ROUTES = {
 		GET_CONNECTIONS_BY_NAME: (name: string) => `/connections/${name}`,
 		CREATE_CONNECTIONS_BY_ID: (id: string) => `/connections/${id}`,
 		DELETE_CONNECTION: (id: string) => `/connections/${id}`,
-		
 		GET_PENDING_CONNECTIONS: '/pending',
 		GET_PENDING_CONNECTIONS_BY_NAME: (name: string) => `/pending/${name}`,
 		DELETE_PENDING_CONNECTION: (id: string) => `/pending/${id}`,

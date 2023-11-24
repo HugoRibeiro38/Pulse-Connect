@@ -24,11 +24,11 @@ const Countdown: React.FunctionComponent<CountdownProps> = ({
 			<CountdownBox value={days} label='Day(s)' />
 			<CountdownBox value={hours} label='Hour(s)' />
 			<Image
-				src='/logo/Logo Transparent.svg'
+				src='assets/logo/Logo Transparent.svg'
 				alt='Logo'
 				width={32}
 				height={32}
-				className='dark:nightMode h-48 w-full'
+				className='h-48 w-auto'
 			/>
 			<CountdownBox value={minutes} label='Minute(s)' />
 			<CountdownBox value={seconds} label='Second(s)' />

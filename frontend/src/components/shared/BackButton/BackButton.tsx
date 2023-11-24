@@ -17,7 +17,7 @@ const BackButton: React.FunctionComponent<BackButtonProps> = ({
 				variant: 'ghost',
 				size: 'icon',
 			})}`}>
-			<ArrowLeft />
+			<ArrowLeft className='h-5 w-5' />
 		</Link>
 	);
 };

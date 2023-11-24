@@ -5,14 +5,14 @@ export type User = {
 	password: string;
 	firstName: string;
 	lastName: string;
-	image: string;
-	banner: string;
+	profileImageURL: string;
+	headerImageURL: string;
 	bio: string;
 	city: string;
 	country: string;
-	url: string;
-	numConnections: number;
-	createdAt: string;
+	customURL: string;
+	connectionsNumber: number;
+	memberSince: string;
 };
 
 export type Users = Users[];

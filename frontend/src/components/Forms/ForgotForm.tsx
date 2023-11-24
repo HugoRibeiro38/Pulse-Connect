@@ -19,7 +19,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { APP_ROUTES } from '@/routes/app';
-import { forgotPasswordSchema, type IForgot } from '@/validators/auth';
+import { forgotPasswordSchema, type IForgot } from '@/validators/Auth';
 
 const ForgotForm: React.FunctionComponent = (): React.ReactNode => {
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);

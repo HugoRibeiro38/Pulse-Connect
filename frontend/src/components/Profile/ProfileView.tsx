@@ -20,7 +20,7 @@ import { useGetUserById } from '@/hooks/useUsers';
 import { formatJoinDate } from '@/utils/format-join-date';
 import { formatNumber } from '@/utils/format-number';
 import { formatURL } from '@/utils/format-url';
-import { getInitials } from '@/utils/initials';
+import { getInitials } from '@/utils/get-initials';
 import { truncateText } from '@/utils/truncate-text';
 
 import ProfileSkeleton from './ProfileSkeleton';
@@ -46,7 +46,7 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 				<Dialog>
 					<DialogTrigger asChild className='w-full'>
 						<Image
-							src={data.banner}
+							src={data.headerImageURL}
 							alt='Header Image'
 							width={1500}
 							height={500}
@@ -63,7 +63,7 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 							<DialogDescription>Header Image</DialogDescription>
 						</DialogHeader>
 						<Image
-							src={data.banner}
+							src={data.headerImageURL}
 							alt='Header Image'
 							width={1500}
 							height={500}
@@ -84,7 +84,7 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 					<DialogTrigger asChild className='w-full'>
 						<Avatar className='absolute bottom-0 left-8 h-32 w-32 translate-y-16 transform cursor-pointer shadow-md'>
 							<AvatarImage
-								src={data.image}
+								src={data.profileImageURL}
 								alt='Profile Image'
 								className='object-cover object-center'
 							/>
@@ -101,7 +101,7 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 							<DialogDescription>Profile Image</DialogDescription>
 						</DialogHeader>
 						<Image
-							src={data.image}
+							src={data.profileImageURL}
 							alt='Profile Image'
 							width={256}
 							height={256}
@@ -153,7 +153,7 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 						<div className='flex flex-row items-center gap-x-2'>
 							<CalendarDays className='h-4 w-4 text-muted-foreground' />
 							<span className='text-sm text-muted-foreground'>
-								Joined in {formatJoinDate(data.createdAt)}
+								Joined in {formatJoinDate(data.memberSince)}
 							</span>
 						</div>
 					</div>
@@ -169,16 +169,16 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 						<div className='flex flex-row items-center gap-x-2'>
 							<LinkIcon className='h-4 w-4 text-muted-foreground' />
 							<a
-								href={data.url}
+								href={data.customURL}
 								target='_blank'
 								className='text-sm text-primary underline-offset-4 hover:underline'>
-								{formatURL(data.url)}
+								{formatURL(data.customURL)}
 							</a>
 						</div>
 					</div>
 					<div className='flex flex-row items-center gap-x-2'>
 						<span className='text-sm font-bold'>
-							{formatNumber(data.numConnections)}
+							{formatNumber(data.connectionsNumber)}
 						</span>
 						<span className='text-sm text-muted-foreground'>
 							Connections

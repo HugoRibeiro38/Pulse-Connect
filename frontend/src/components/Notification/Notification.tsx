@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { getInitials } from '@/utils/initials';
+import { getInitials } from '@/utils/get-initials';
 
 type NotificationProps = {
 	image: string;

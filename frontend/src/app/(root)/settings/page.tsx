@@ -5,7 +5,7 @@ import { SettingsItem } from '@/components/Settings';
 import { BackButton } from '@/components/shared/BackButton';
 import { Title } from '@/components/shared/Title';
 import { Separator } from '@/components/ui/separator';
-import { type SettingsItemProps, settingsItems } from '@/data/settings';
+import { settingsItems } from '@/data/settings';
 import { APP_ROUTES } from '@/routes/app';
 
 export const metadata: Metadata = {
@@ -28,25 +28,17 @@ const SettingsPage: NextPage = (): React.ReactNode => {
 						<div
 							key={`${categoty}-${index}`}
 							className='flex w-full flex-col items-start justify-between gap-y-4'>
-							<h2 className='text-lg text-muted-foreground'>
+							<h2 className='text-lg font-medium text-muted-foreground'>
 								{categoty}
 							</h2>
 							{settingsItems[categoty]?.map(
-								(
-									{
-										href,
-										label,
-										text,
-										icon,
-									}: SettingsItemProps,
-									index: number,
-								) => (
+								(setting, index: number) => (
 									<SettingsItem
-										key={`${label}-${index}`}
-										href={href}
-										label={label}
-										text={text}
-										icon={icon}
+										key={`${setting.title}-${index}`}
+										url={setting.url}
+										title={setting.title}
+										text={setting.text}
+										icon={setting.icon}
 									/>
 								),
 							)}

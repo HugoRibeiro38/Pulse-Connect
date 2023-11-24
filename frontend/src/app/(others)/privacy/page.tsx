@@ -1,11 +1,6 @@
-import { ArrowLeft } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 
-import { buttonVariants } from '@/components/ui/button';
 import { CONTACT_EMAIL } from '@/data/constants';
-import { APP_ROUTES } from '@/routes/app';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Privacy Policy',
@@ -13,27 +8,13 @@ export const metadata: Metadata = {
 
 const PrivacyPage: NextPage = (): React.ReactNode => {
 	return (
-		<div className='mx-auto flex max-w-7xl flex-col items-start justify-center gap-y-8 px-4 py-16 sm:px-6 lg:px-8'>
-			<div className='flex w-full flex-row items-center justify-between pb-8'>
-				<Link href={APP_ROUTES.HOME}>
-					<Image
-						src='/logo/Logo Transparent Text Black.svg'
-						alt='Logo'
-						width={32}
-						height={32}
-						className='dark:nightMode h-12 w-auto'
-					/>
-				</Link>
-				<Link
-					href={APP_ROUTES.HOME}
-					className={`${buttonVariants({ variant: 'default' })}`}>
-					<ArrowLeft className='mr-2 h-4 w-4' />
-					Go back
-				</Link>
-			</div>
+		<div className='flex flex-col items-start justify-between gap-y-8'>
 			<h1 className='text-4xl font-extrabold tracking-tight'>
 				Privacy Policy
 			</h1>
+			<p className='text-base font-normal leading-7'>
+				Last Updated: 10-30-2023 12:00 AM WEST
+			</p>
 			<h2 className='text-3xl font-semibold tracking-tight'>
 				1. Information Collection
 			</h2>

@@ -5,7 +5,7 @@ type TitleProps = {
 const Title: React.FunctionComponent<TitleProps> = ({
 	title,
 }): React.ReactNode => {
-	return <h1 className='py-1.5 text-xl tracking-tight font-bold'>{title}</h1>;
+	return <h1 className='py-1.5 text-xl font-bold tracking-tight'>{title}</h1>;
 };
 
 export default Title;

@@ -33,7 +33,7 @@ const ThemeCard: React.FunctionComponent<ThemeCardProps> = ({
 			)}>
 			<div
 				className={clsx(
-					'specialBorderRadiusTop flex w-full flex-row flex-wrap items-center justify-between gap-x-2 border-b border-b-input px-6 py-4',
+					'border-special-top flex w-full flex-row flex-wrap items-center justify-between gap-x-2 border-b border-b-input px-6 py-4',
 					isActive && 'border-b-primary',
 				)}>
 				<div className='flex flex-row items-center justify-between gap-x-2'>
@@ -54,7 +54,7 @@ const ThemeCard: React.FunctionComponent<ThemeCardProps> = ({
 					</Badge>
 				)}
 			</div>
-			<div className='specialBorderRadiusBottom flex flex-col items-center justify-between gap-y-6 bg-background px-6 py-6'>
+			<div className='border-special-bottom flex flex-col items-center justify-between gap-y-6 bg-background px-6 py-6'>
 				<Image
 					src={image}
 					alt={alt}
