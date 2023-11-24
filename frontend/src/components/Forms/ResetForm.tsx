@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { APP_ROUTES } from '@/routes/app';
-import { type IReset, resetPasswordSchema } from '@/validators/auth';
+import { type IReset, resetPasswordSchema } from '@/validators/Auth';
 
 const ResetForm: React.FunctionComponent = (): React.ReactNode => {
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);

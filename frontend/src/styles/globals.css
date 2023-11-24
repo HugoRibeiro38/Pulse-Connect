@@ -52,11 +52,19 @@
 		@apply border-border;
 	}
 
+	html {
+		@apply scroll-smooth;
+	}
+
 	body {
 		@apply bg-background text-foreground antialiased;
 	}
 
-	.nightMode {
-		filter: invert(1) hue-rotate(180deg);
+	.border-special-top {
+		border-radius: calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0 0;
+	}
+
+	.border-special-bottom {
+		border-radius: 0 0 calc(var(--radius) - 2px) calc(var(--radius) - 2px);
 	}
 }

@@ -3,7 +3,7 @@ import { type NavigationItemProps, navigationItems } from '@/data/navigation';
 
 const Sidebar: React.FunctionComponent = (): React.ReactNode => {
 	return (
-		<aside className='w-min border-r border-input p-8'>
+		<aside className='w-min border-r border-border p-8'>
 			<nav className='h-full w-full'>
 				<ul className='flex h-full w-full flex-col items-center justify-between'>
 					{Object.keys(navigationItems).map(
@@ -18,7 +18,7 @@ const Sidebar: React.FunctionComponent = (): React.ReactNode => {
 									) => (
 										<SidebarItem
 											key={`${item.title}-${index}`}
-											href={item.href}
+											url={item.url}
 											title={item.title}
 											icon={item.icon}
 										/>

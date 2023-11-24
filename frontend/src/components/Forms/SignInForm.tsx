@@ -28,7 +28,7 @@ import {
 	removeFromLocalStorage,
 	writeOnLocalStorage,
 } from '@/utils/local-storage';
-import { type ISignIn, signInSchema } from '@/validators/auth';
+import { type ISignIn, signInSchema } from '@/validators/Auth';
 
 const SignInForm: React.FunctionComponent = (): React.ReactNode => {
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);

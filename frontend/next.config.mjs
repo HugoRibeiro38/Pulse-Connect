@@ -5,7 +5,12 @@ await import('./src/env.mjs');
 /** @type {import("next").NextConfig} */
 const config = {
 	images: {
-		domains: ['cloudflare-ipfs.com'],
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: '**',
+			},
+		],
 	},
 };
 

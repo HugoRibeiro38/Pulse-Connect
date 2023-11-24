@@ -16,21 +16,23 @@ const ThemeButton: React.FunctionComponent<ThemeButtonProps> = ({
 	icon,
 }): React.ReactNode => {
 	const { setTheme, theme } = useTheme();
+	const isActive = theme === themeType;
+
 	return (
 		<button
 			className='flex w-full flex-row items-center justify-between'
 			onClick={() => setTheme(themeType)}>
-			<div className='flex flex-row items-center'>
+			<div className='flex flex-row items-center gap-x-2'>
 				<Image
 					src={icon}
-					alt='Icon'
-					width={20}
-					height={20}
-					className='dark:nightMode mr-2 h-4 w-4'
+					alt={`Icon to toggle theme to ${themeType} mode.`}
+					width={16}
+					height={16}
+					className='h-4 w-4 dark:invert'
 				/>
 				<span className='w-full'>{title}</span>
 			</div>
-			{theme === themeType && <Check className='ml-2 h-4 w-4' />}
+			{isActive && <Check className='h-4 w-4' />}
 		</button>
 	);
 };

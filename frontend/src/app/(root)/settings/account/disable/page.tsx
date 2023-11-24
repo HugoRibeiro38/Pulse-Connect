@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
-import { Title } from '@/components/Title';
+import { Title } from '@/components/shared/Title';
 import { Button } from '@/components/ui/button';
-import { SUPPORT_EMAIL } from '@/data/constants';
+import { CONTACT_EMAIL } from '@/data/constants';
 import { APP_ROUTES } from '@/routes/app';
 
 import ConfirmationDialog from './confirmation-dialog';
@@ -47,9 +47,9 @@ const DisableSettingsPage: NextPage = (): React.ReactNode => {
 					If you have any uncertainties or inquiries, we recommend
 					reaching out to our{' '}
 					<a
-						href={`mailto:${SUPPORT_EMAIL}?subject=Disable Account`}
+						href={`mailto:${CONTACT_EMAIL}?subject=Disable Account`}
 						className='text-primary underline underline-offset-4'>
-						support team
+						contact team
 					</a>{' '}
 					for further assistance.
 				</p>

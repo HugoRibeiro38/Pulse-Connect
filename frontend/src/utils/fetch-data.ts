@@ -1,14 +1,10 @@
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-type RequestOptions = {
-	headers?: Record<string, string>;
-	body?: Record<string, unknown>;
-};
-
 export const fetchData = async <T>(
 	url: string,
 	method: HttpMethod,
-	options?: RequestOptions,
+	headers?: Record<string, string>,
+	body?: Record<string, unknown>,
 ): Promise<T> => {
 	try {
 		const response = await fetch(url, {
@@ -16,9 +12,9 @@ export const fetchData = async <T>(
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				...options?.headers,
+				...headers,
 			},
-			body: options?.body && JSON.stringify(options.body),
+			body: body && JSON.stringify(body),
 		});
 
 		if (!response.ok) {

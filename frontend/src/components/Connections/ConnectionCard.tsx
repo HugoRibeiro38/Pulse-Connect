@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { APP_ROUTES } from '@/routes/app';
-import { getInitials } from '@/utils/initials';
+import { getInitials } from '@/utils/get-initials';
 
 import RemoveConnectionButton from './RemoveConnectionButton';
 

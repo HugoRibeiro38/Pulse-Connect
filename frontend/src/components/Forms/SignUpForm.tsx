@@ -21,7 +21,7 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { APP_ROUTES } from '@/routes/app';
 import { writeOnLocalStorage } from '@/utils/local-storage';
-import { type ISignUp, signUpSchema } from '@/validators/auth';
+import { type ISignUp, signUpSchema } from '@/validators/Auth';
 
 const SignUpForm: React.FunctionComponent = (): React.ReactNode => {
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
