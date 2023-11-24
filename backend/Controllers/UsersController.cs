@@ -108,7 +108,7 @@ namespace PulseConnect.Controllers
         /*
          * Função para filtrar os campos a obter da tabela users da base de dados
          */
-        private object UserInfo(Users user)
+        private static object UserInfo(Users user)
         {
             return new
             {
