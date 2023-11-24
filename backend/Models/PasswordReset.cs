@@ -17,6 +17,7 @@ namespace PulseConnect.Models
         public String UserID { get; set; }
 
         [Column("Token")]
+        [MaxLength(1024)]
         public String Token { get; set; }
 
         [Column("Expire_Date")]
