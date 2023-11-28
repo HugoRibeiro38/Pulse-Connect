@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { APP_ROUTES } from '@/routes/app';
-import { getInitials } from '@/utils/initials';
+import { getInitials } from '@/utils/get-initials';
 import { typeOfMessage } from '@/utils/message-type';
-import { timeType } from '@/utils/time-type';
+import { formatTimestamp } from '@/utils/format-timestamp';
 
 type MessageItemProps = {
 	id: string;
@@ -40,7 +40,7 @@ const MessageItem: React.FunctionComponent<MessageItemProps> = ({
 							{firstName} {lastName}
 						</span>
 						<small className='text-xs text-muted-foreground'>
-							{timeType(time)}
+							{formatTimestamp(time)}
 						</small>
 					</div>
 					<p className='text-xs text-muted-foreground'>
