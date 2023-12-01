@@ -6,45 +6,44 @@ import {
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
-import { getServerAuthSession } from '@/app/api/auth/[...nextauth]/route';
-import { ProfileView } from '@/components/ProfilePage';
+import { ProfileConnectionsView } from '@/components/ProfilePage';
 import { BackButton } from '@/components/shared/BackButton';
 import { Title } from '@/components/shared/Title';
 import { Separator } from '@/components/ui/separator';
 import { APP_ROUTES } from '@/routes/APP';
-import { getUserById } from '@/services/Users';
+import { getUserConnectionsById } from '@/services/Users';
 
 export const metadata: Metadata = {
-	title: 'Pulse Connect - Profile',
+	title: 'Pulse Connect - Profile Connections',
 };
 
-const ProfilePage: NextPage = async () => {
-	const session = await getServerAuthSession();
+type ProfileConnectionsPageProps = {
+	params: { id: string };
+};
 
-	if (!session) throw new Error('User is not authenticated!');
-
+const ProfileConnectionsPage: NextPage<ProfileConnectionsPageProps> = async ({
+	params,
+}) => {
 	const queryClient = new QueryClient();
-	await Promise.all([
-		queryClient.prefetchQuery({
-			queryKey: ['users', session.user.id],
-			queryFn: () => getUserById(session.user.id),
-		}),
-	]);
+	await queryClient.prefetchQuery({
+		queryKey: ['users', params.id, 'connections'],
+		queryFn: () => getUserConnectionsById(params.id),
+	});
 
 	return (
 		<Fragment>
 			<div className='flex w-full flex-col items-start justify-between gap-y-4'>
 				<div className='flex flex-row items-center justify-between gap-x-4'>
 					<BackButton url={APP_ROUTES.HOME} />
-					<Title title='Profile' />
+					<Title title='Profile Connections' />
 				</div>
 				<Separator />
 			</div>
 			<HydrationBoundary state={dehydrate(queryClient)}>
-				<ProfileView userId={session.user.id} />
+				<ProfileConnectionsView userId={params.id} />
 			</HydrationBoundary>
 		</Fragment>
 	);
 };
 
-export default ProfilePage;
+export default ProfileConnectionsPage;

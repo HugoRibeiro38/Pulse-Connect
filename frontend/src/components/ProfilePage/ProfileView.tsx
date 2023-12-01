@@ -1,7 +1,15 @@
 'use client';
 
-import { CalendarDays, Link as LinkIcon, Mail, MapPin } from 'lucide-react';
+import {
+	CalendarDays,
+	Link as LinkIcon,
+	Mail,
+	MapPin,
+	Pencil,
+} from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { Fragment } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -17,12 +25,18 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog';
 import { useGetUserById } from '@/hooks/useUsers';
+import { APP_ROUTES } from '@/routes/APP';
 import { formatJoinDate } from '@/utils/format-join-date';
 import { formatNumber } from '@/utils/format-number';
 import { formatURL } from '@/utils/format-url';
 import { getInitials } from '@/utils/get-initials';
 import { truncateText } from '@/utils/truncate-text';
 
+import EditProfileForm from '../Forms/EditProfileForm';
+import AddConnectionButton from '../Testing/AddConnectionButton';
+import MessageButton from '../Testing/MessageButton';
+import MoreOptionsButton from '../Testing/MoreOptionsButton';
+import RemoveConnectionButton from '../Testing/RemoveConnectionButton';
 import ProfileSkeleton from './ProfileSkeleton';
 
 type ProfileViewProps = {
@@ -32,13 +46,18 @@ type ProfileViewProps = {
 const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 	userId,
 }): React.ReactNode => {
-	const { data, isLoading, error } = useGetUserById(userId);
+	const { isLoading, isError, data, error } = useGetUserById(userId);
+	const { data: session } = useSession();
+
+	if (!session) return <div>Not authenticated</div>;
 
 	if (isLoading) return <ProfileSkeleton />;
 
-	if (error) return <div>Error: {error.message}</div>;
+	if (isError) throw new Error(error.message);
 
 	if (!data) return <div>Not found</div>;
+
+	const isOwner = session.user.id === data.id;
 
 	return (
 		<Fragment>
@@ -119,8 +138,8 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 					</DialogContent>
 				</Dialog>
 			</div>
-			<div className='mt-16 flex w-full flex-col gap-y-4'>
-				<div className='flex flex-row items-center justify-between'>
+			<div className='mt-16 flex w-full flex-col gap-4'>
+				<div className='flex flex-row items-center justify-between flex-wrap gap-4'>
 					<div className='flex flex-col'>
 						<h2 className='text-xl font-bold'>
 							{data.firstName} {data.lastName}
@@ -130,16 +149,41 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 						</span>
 					</div>
 					<div className='flex flex-row justify-between gap-x-2'>
-						{/* 
-							If he's on the route "/profile/{id}" and the user is not friends with the authenticated user show -> <AddConnectionButton userId={userId} />
-							If he's on the route "/profile/{id}" and the user is friends with the authenticated user show -> <RemoveConnectionButton userId={userId} />
-							If he's on the route "/profile/{id}" and the user is friends with the authenticated user show -> <MessageButton userId={userId} />
-							If he's on the route "/profile" show -> <EditProfileButton />
-							If he's on the route "/profile" show -> <MoreOptionsButton />
-						*/}
+						{isOwner ? (
+							<Fragment>
+								<Dialog>
+									<DialogTrigger asChild>
+										<Button type='button'>
+											<Pencil className='mr-2 h-4 w-4' />
+											Edit Profile
+										</Button>
+									</DialogTrigger>
+									<DialogContent>
+										<DialogHeader>
+											<DialogTitle>
+												Edit Profile
+											</DialogTitle>
+											<DialogDescription>
+												Make changes to your profile
+												here. Click save when
+												you&apos;re done.
+											</DialogDescription>
+										</DialogHeader>
+										<EditProfileForm id={data.id} />
+									</DialogContent>
+								</Dialog>
+								<MoreOptionsButton />
+							</Fragment>
+						) : (
+							<Fragment>
+								<AddConnectionButton userId={userId} />
+								<RemoveConnectionButton userId={userId} />
+								<MessageButton userId={userId} />
+							</Fragment>
+						)}
 					</div>
 				</div>
-				<p className='w-3/4 text-base font-normal'>
+				<p className='w-full text-base font-normal lg:w-3/4'>
 					{truncateText(data.bio, 144)}
 				</p>
 				<div className='flex flex-col gap-y-1'>
@@ -163,7 +207,7 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 							<a
 								href={`mailto:${data.email}?subject=Contact by profile page at Pulse Connect.`}
 								className='text-sm text-primary underline-offset-4 hover:underline'>
-								{data.email}
+								{data.email.toLowerCase()}
 							</a>
 						</div>
 						<div className='flex flex-row items-center gap-x-2'>
@@ -177,9 +221,13 @@ const ProfileView: React.FunctionComponent<ProfileViewProps> = ({
 						</div>
 					</div>
 					<div className='flex flex-row items-center gap-x-2'>
-						<span className='text-sm font-bold'>
-							{formatNumber(data.connectionsNumber)}
-						</span>
+						<Link
+							href={`${APP_ROUTES.PROFILE_CONNECTIONS(data.id)}`}
+							className='underline-offset-4 hover:text-primary hover:underline'>
+							<span className='text-sm font-bold'>
+								{formatNumber(data.connectionsNumber)}
+							</span>
+						</Link>
 						<span className='text-sm text-muted-foreground'>
 							Connections
 						</span>
