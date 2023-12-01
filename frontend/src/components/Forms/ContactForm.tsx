@@ -56,10 +56,10 @@ const ContactForm: React.FunctionComponent = (): React.ReactNode => {
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				name='contact'
-				className='grid gap-4'
+				name='contact-form'
+				className='flex w-full flex-col gap-4 md:w-1/2'
 				id='contact'>
-				<div className='flex flex-row items-center justify-between space-x-4'>
+				<div className='flex flex-row items-center justify-between gap-x-4'>
 					<FormField
 						control={form.control}
 						name='firstName'

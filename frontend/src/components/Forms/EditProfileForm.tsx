@@ -19,37 +19,29 @@ import { Input } from '@/components/ui/input';
 import {
 	Select,
 	SelectContent,
-	SelectGroup,
 	SelectItem,
-	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/use-toast';
 import { countries } from '@/data/countries';
+import { getUserById } from '@/services/Users';
 import {
 	type UserProfileInformation,
 	UserProfileInformationSchema,
 } from '@/validators/User';
 
 type EditProfileFormProps = {
-	//
+	id: string;
 };
 
-const EditProfileForm: React.FunctionComponent<
-	EditProfileFormProps
-> = ({}): React.ReactNode => {
+const EditProfileForm: React.FunctionComponent<EditProfileFormProps> = ({
+	id,
+}): React.ReactNode => {
 	const form = useForm<UserProfileInformation>({
 		resolver: zodResolver(UserProfileInformationSchema),
-		defaultValues: {
-			firstName: '',
-			lastName: '',
-			bio: '',
-			country: '',
-			city: '',
-			url: '',
-		},
+		defaultValues: () => getUserById(id),
 	});
 
 	const onSubmit: SubmitHandler<UserProfileInformation> = (data) => {
@@ -75,11 +67,12 @@ const EditProfileForm: React.FunctionComponent<
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				name='edit-profile'
-				className='grid gap-4'>
+				name='edit-profile-form'
+				className='flex w-full flex-col gap-4'>
 				<FormField
 					control={form.control}
 					name='firstName'
+					disabled={form.formState.isLoading}
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>First Name</FormLabel>
@@ -98,6 +91,7 @@ const EditProfileForm: React.FunctionComponent<
 				<FormField
 					control={form.control}
 					name='lastName'
+					disabled={form.formState.isLoading}
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>Last Name</FormLabel>
@@ -116,6 +110,7 @@ const EditProfileForm: React.FunctionComponent<
 				<FormField
 					control={form.control}
 					name='bio'
+					disabled={form.formState.isLoading}
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>Bio</FormLabel>
@@ -137,26 +132,25 @@ const EditProfileForm: React.FunctionComponent<
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>Country</FormLabel>
-							<Select onValueChange={field.onChange}>
+							<Select
+								onValueChange={field.onChange}
+								defaultValue={field.value}
+								value={field.value}
+								disabled={form.formState.isLoading}>
 								<FormControl>
 									<SelectTrigger>
 										<SelectValue placeholder='Select a country' />
 									</SelectTrigger>
 								</FormControl>
-								<SelectContent>
-									<SelectGroup className='max-h-64 overflow-y-auto'>
-										<SelectLabel>Countries</SelectLabel>
-										{countries.map(
-											(country, index: number) => (
-												<SelectItem
-													key={`${country.value}-${index}`}
-													value={country.value}
-													className='cursor-pointer'>
-													{country.label}
-												</SelectItem>
-											),
-										)}
-									</SelectGroup>
+								<SelectContent className='max-h-64 overflow-y-auto'>
+									{countries.map((country, index: number) => (
+										<SelectItem
+											key={`${country.value}-${index}`}
+											value={country.value}
+											className='cursor-pointer'>
+											{country.label}
+										</SelectItem>
+									))}
 								</SelectContent>
 							</Select>
 							<FormMessage />
@@ -166,6 +160,7 @@ const EditProfileForm: React.FunctionComponent<
 				<FormField
 					control={form.control}
 					name='city'
+					disabled={form.formState.isLoading}
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>City</FormLabel>
@@ -182,7 +177,8 @@ const EditProfileForm: React.FunctionComponent<
 				/>
 				<FormField
 					control={form.control}
-					name='url'
+					name='customURL'
+					disabled={form.formState.isLoading}
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>URL</FormLabel>
@@ -206,7 +202,10 @@ const EditProfileForm: React.FunctionComponent<
 					</DialogClose>
 					<Button
 						type='submit'
-						disabled={form.formState.isSubmitting}
+						disabled={
+							form.formState.isSubmitting ||
+							form.formState.isLoading
+						}
 						className='max-w-min'>
 						{form.formState.isSubmitting ? (
 							<Fragment>

@@ -23,7 +23,6 @@ const ThemeCard: React.FunctionComponent<ThemeCardProps> = ({
 }): React.ReactNode => {
 	const { setTheme, theme } = useTheme();
 	const isActive = theme === themeType;
-
 	return (
 		<button
 			onClick={() => setTheme(themeType)}

@@ -1,7 +1,6 @@
 import {
 	ChevronDown,
 	Contrast,
-	HelpCircle,
 	Languages,
 	LogOut,
 	Search,
@@ -11,7 +10,6 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ThemeButton } from '@/components/ThemeButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -28,14 +26,16 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { APP_ROUTES } from '@/routes/app';
+import { APP_ROUTES } from '@/routes/APP';
+
+import ThemeButton from './ThemeButton';
 
 const Navbar: React.FunctionComponent = (): React.ReactNode => {
 	return (
 		<header className='flex w-full flex-row items-center justify-between border-b border-border p-8'>
 			<Link href={APP_ROUTES.HOME}>
 				<Image
-					src='assets/logo/Logo Transparent.svg'
+					src='/assets/logo/Logo Transparent.svg'
 					alt='Logo'
 					width={128}
 					height={40}
@@ -43,7 +43,7 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 					className='h-10 w-auto'
 				/>
 			</Link>
-			<div className='flex w-full max-w-sm flex-row items-center justify-between gap-x-2'>
+			<div className='md:flex w-full max-w-sm flex-row items-center justify-between gap-x-2 hidden'>
 				<Input type='text' placeholder='Search...' />
 				<Button variant='default' size='icon' className='shrink-0'>
 					<Search className='h-4 w-4' />
@@ -54,12 +54,12 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 					<div className='flex cursor-pointer flex-row items-center justify-between gap-x-2'>
 						<Avatar>
 							<AvatarImage
-								src='assets/logo/Logo Transparent.svg'
+								src='/assets/logo/Logo Transparent.svg'
 								alt='Avatar'
 							/>
 							<AvatarFallback>PC</AvatarFallback>
 						</Avatar>
-						<div className='flex flex-col items-start justify-between'>
+						<div className='hidden flex-col items-start justify-between md:flex'>
 							<span className='text-base font-medium'>
 								Pulse Connect
 							</span>
@@ -70,7 +70,7 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 								</span>
 							</div>
 						</div>
-						<ChevronDown className='h-5 w-5' />
+						<ChevronDown className='hidden h-5 w-5 md:flex' />
 					</div>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className='w-48'>
@@ -148,22 +148,13 @@ const Navbar: React.FunctionComponent = (): React.ReactNode => {
 						</DropdownMenuItem>
 						<DropdownMenuItem>
 							<Link
-								href={APP_ROUTES.HELP}
+								href={APP_ROUTES.AUTH.SIGN_OUT}
 								className='flex w-full flex-row items-center justify-start'>
-								<HelpCircle className='mr-2 h-4 w-4' />
-								Help
+								<LogOut className='mr-2 h-4 w-4' />
+								Sign Out
 							</Link>
 						</DropdownMenuItem>
 					</DropdownMenuGroup>
-					<DropdownMenuSeparator />
-					<DropdownMenuItem>
-						<Link
-							href={APP_ROUTES.AUTH.SIGNOUT}
-							className='flex w-full flex-row items-center justify-start'>
-							<LogOut className='mr-2 h-4 w-4' />
-							Sign Out
-						</Link>
-					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
 		</header>

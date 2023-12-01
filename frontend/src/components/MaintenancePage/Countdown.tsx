@@ -24,7 +24,7 @@ const Countdown: React.FunctionComponent<CountdownProps> = ({
 			<CountdownBox value={days} label='Day(s)' />
 			<CountdownBox value={hours} label='Hour(s)' />
 			<Image
-				src='assets/logo/Logo Transparent.svg'
+				src='/assets/logo/Logo Transparent.svg'
 				alt='Logo'
 				width={32}
 				height={32}

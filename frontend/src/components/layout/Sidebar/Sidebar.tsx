@@ -1,9 +1,9 @@
-import SidebarItem from '@/components/Sidebar/SidebarItem';
+import SidebarItem from '@/components/layout/Sidebar/SidebarItem';
 import { type NavigationItemProps, navigationItems } from '@/data/navigation';
 
 const Sidebar: React.FunctionComponent = (): React.ReactNode => {
 	return (
-		<aside className='w-min border-r border-border p-8'>
+		<aside className='hidden w-min border-r border-border p-8 md:flex'>
 			<nav className='h-full w-full'>
 				<ul className='flex h-full w-full flex-col items-center justify-between'>
 					{Object.keys(navigationItems).map(

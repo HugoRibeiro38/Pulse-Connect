@@ -17,7 +17,6 @@ const ThemeButton: React.FunctionComponent<ThemeButtonProps> = ({
 }): React.ReactNode => {
 	const { setTheme, theme } = useTheme();
 	const isActive = theme === themeType;
-
 	return (
 		<button
 			className='flex w-full flex-row items-center justify-between'
