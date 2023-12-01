@@ -2,8 +2,9 @@ import { Fragment } from 'react';
 
 import { Chatbar } from '@/components/layout/Chatbar';
 import { Footer } from '@/components/layout/Footer';
+import { MobileSidebar } from '@/components/layout/MobileSidebar';
 import { Navbar } from '@/components/layout/Navbar';
-import { Sidebar } from '@/components/Sidebar/';
+import { Sidebar } from '@/components/layout/Sidebar';
 
 type FeedLayoutProps = {
 	children: React.ReactNode;
@@ -24,6 +25,7 @@ const FeedLayout: React.FunctionComponent<FeedLayoutProps> = ({
 				</main>
 				<Chatbar />
 			</div>
+			<MobileSidebar />
 			<Footer />
 		</Fragment>
 	);

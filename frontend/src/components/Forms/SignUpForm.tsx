@@ -3,9 +3,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2, Twitter } from 'lucide-react';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { Fragment, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { useForm } from 'react-hook-form';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -19,16 +19,15 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { APP_ROUTES } from '@/routes/app';
-import { writeOnLocalStorage } from '@/utils/local-storage';
-import { type ISignUp, signUpSchema } from '@/validators/Auth';
+import { toast } from '@/components/ui/use-toast';
+import { APP_ROUTES } from '@/routes/APP';
+import { type SignUp, SignUpSchema } from '@/validators/Auth';
 
 const SignUpForm: React.FunctionComponent = (): React.ReactNode => {
-	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const refCaptcha = useRef<ReCAPTCHA>(null);
 
-	const form = useForm<ISignUp>({
-		resolver: zodResolver(signUpSchema),
+	const form = useForm<SignUp>({
+		resolver: zodResolver(SignUpSchema),
 		defaultValues: {
 			firstName: '',
 			lastName: '',
@@ -39,37 +38,52 @@ const SignUpForm: React.FunctionComponent = (): React.ReactNode => {
 		},
 	});
 
-	const onSubmit = (data: ISignUp) => {
-		setIsSubmitting(true);
-
-		if (data.remember)
-			writeOnLocalStorage({
-				key: 'remember',
-				data: {
-					email: data.email,
-					password: data.password,
-					remember: data.remember,
-				},
-			});
-
-		console.log('Form data: ' + JSON.stringify(data));
+	const onSubmit: SubmitHandler<SignUp> = (data) => {
+		// TODO: Call API to update user profile info
+		// if (!remember) removeFromLocalStorage({ key: 'remember' });
+		// else {
+		// 	const encryptedPassword = await encrypt(password);
+		// 	if (!encryptedPassword) return;
+		// 	writeOnLocalStorage({
+		// 		key: 'remember',
+		// 		data: {
+		// 			email,
+		// 			password: encryptedPassword,
+		// 			remember,
+		// 		},
+		// 	});
+		// }
 
 		// const response = await signUp('credentials', {
-		// 	email: data.email,
-		// 	password: data.password,
-		// 	callbackUrl: ROUTES.HOME,
+		// 	email,
+		// 	password,
+		// 	redirect: true,
+		// 	callbackUrl: callbackUrl,
 		// });
 
-		// console.log('Response: ' + JSON.stringify(response));
+		return new Promise<void>((resolve) => {
+			setTimeout(() => {
+				toast({
+					title: 'You submitted the following values:',
+					description: (
+						<pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+							<code className='text-white'>
+								{JSON.stringify(data, null, 2)}
+							</code>
+						</pre>
+					),
+				});
+				resolve();
+			}, 5000);
+		});
 	};
 
 	return (
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className='space-y-4'
-				id='signup'
-				name='signup'>
+				name='sign-up-form'
+				className='flex w-full flex-col gap-4'>
 				<div className='flex flex-row justify-between space-x-4'>
 					<FormField
 						control={form.control}
@@ -198,7 +212,7 @@ const SignUpForm: React.FunctionComponent = (): React.ReactNode => {
 						)}
 					/>
 					<Link
-						href={APP_ROUTES.AUTH.FORGOT_PASSWORD}
+						href={APP_ROUTES.AUTH.SIGN_IN}
 						className={`${buttonVariants({
 							variant: 'link',
 						})}`}>
@@ -214,14 +228,14 @@ const SignUpForm: React.FunctionComponent = (): React.ReactNode => {
 				<Button
 					type='submit'
 					className='w-full'
-					disabled={form.formState.isSubmitting || isSubmitting}>
-					{isSubmitting ? (
-						<>
+					disabled={form.formState.isSubmitting}>
+					{form.formState.isSubmitting ? (
+						<Fragment>
 							<Loader2 className='mr-2 h-4 w-4 animate-spin' />
 							Submitting...
-						</>
+						</Fragment>
 					) : (
-						'Submit'
+						<Fragment>Submit</Fragment>
 					)}
 				</Button>
 				<Separator />

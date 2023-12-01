@@ -1,5 +1,7 @@
 import { type Metadata, type NextPage } from 'next/types';
+
 import { Separator } from '@/components/ui/separator';
+
 import { ChangePasswordForm } from './change-password-form';
 
 export const metadata: Metadata = {

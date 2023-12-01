@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { BackButton } from '@/components/shared/BackButton';
 import { Title } from '@/components/shared/Title';
 import { Separator } from '@/components/ui/separator';
-import { APP_ROUTES } from '@/routes/app';
+import { APP_ROUTES } from '@/routes/APP';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Notifications Settings',

@@ -8,6 +8,7 @@ const isCryptoSupported = (): boolean => typeof crypto !== 'undefined';
 const generateEncryptionKey = async (): Promise<CryptoKey | null> => {
 	if (!isCryptoSupported())
 		throw new Error('Web Crypto API is not supported!');
+
 	return crypto.subtle.generateKey(
 		{
 			name: 'AES-GCM',
@@ -21,12 +22,14 @@ const generateEncryptionKey = async (): Promise<CryptoKey | null> => {
 const generateIV = (): Uint8Array | null => {
 	if (!isCryptoSupported())
 		throw new Error('Web Crypto API is not supported!');
+
 	return crypto.getRandomValues(new Uint8Array(12));
 };
 
 const importKey = (keyData: Uint8Array): Promise<CryptoKey | null> => {
 	if (!isCryptoSupported())
 		throw new Error('Web Crypto API is not supported!');
+
 	return crypto.subtle.importKey('raw', keyData, { name: 'AES-GCM' }, false, [
 		'decrypt',
 	]);

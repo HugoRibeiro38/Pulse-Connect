@@ -4,8 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2, Twitter } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 
@@ -21,24 +20,20 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { APP_ROUTES } from '@/routes/app';
-import { decrypt, encrypt } from '@/utils/cryptography';
-import {
-	readFromLocalStorage,
-	removeFromLocalStorage,
-	writeOnLocalStorage,
-} from '@/utils/local-storage';
-import { type ISignIn, signInSchema } from '@/validators/Auth';
+import { toast } from '@/components/ui/use-toast';
+import { APP_ROUTES } from '@/routes/APP';
+import { decrypt } from '@/utils/cryptography';
+import { readFromLocalStorage } from '@/utils/local-storage';
+import { type SignIn, SignInSchema } from '@/validators/Auth';
 
 const SignInForm: React.FunctionComponent = (): React.ReactNode => {
-	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const refCaptcha = useRef<ReCAPTCHA>(null);
 	const searchParams = useSearchParams();
 
 	const callbackUrl = searchParams.get('callbackUrl') ?? APP_ROUTES.HOME;
 
-	const form = useForm<ISignIn>({
-		resolver: zodResolver(signInSchema),
+	const form = useForm<SignIn>({
+		resolver: zodResolver(SignInSchema),
 		defaultValues: {
 			email: '',
 			password: '',
@@ -63,44 +58,52 @@ const SignInForm: React.FunctionComponent = (): React.ReactNode => {
 		void fetchData();
 	}, [form]);
 
-	const onSubmit: SubmitHandler<ISignIn> = async ({
-		email,
-		password,
-		remember,
-	}: ISignIn) => {
-		setIsSubmitting(true);
+	const onSubmit: SubmitHandler<SignIn> = (data) => {
+		// TODO: Call API to update user profile info
+		// if (!remember) removeFromLocalStorage({ key: 'remember' });
+		// else {
+		// 	const encryptedPassword = await encrypt(password);
+		// 	if (!encryptedPassword) return;
+		// 	writeOnLocalStorage({
+		// 		key: 'remember',
+		// 		data: {
+		// 			email,
+		// 			password: encryptedPassword,
+		// 			remember,
+		// 		},
+		// 	});
+		// }
 
-		if (!remember) removeFromLocalStorage({ key: 'remember' });
-		else {
-			const encryptedPassword = await encrypt(password);
-			if (!encryptedPassword) return;
-			writeOnLocalStorage({
-				key: 'remember',
-				data: {
-					email,
-					password: encryptedPassword,
-					remember,
-				},
-			});
-		}
+		// const response = await signIn('credentials', {
+		// 	email,
+		// 	password,
+		// 	redirect: true,
+		// 	callbackUrl: callbackUrl,
+		// });
 
-		const response = await signIn('credentials', {
-			email,
-			password,
-			redirect: true,
-			callbackUrl: callbackUrl,
+		return new Promise<void>((resolve) => {
+			setTimeout(() => {
+				toast({
+					title: 'You submitted the following values:',
+					description: (
+						<pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+							<code className='text-white'>
+								{JSON.stringify(data, null, 2)}
+							</code>
+						</pre>
+					),
+				});
+				resolve();
+			}, 5000);
 		});
-
-		console.log(response);
 	};
 
 	return (
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className='space-y-4'
-				id='signin'
-				name='signin'>
+				name='sign-in-form'
+				className='flex w-full flex-col gap-4'>
 				<FormField
 					control={form.control}
 					name='email'
@@ -170,19 +173,19 @@ const SignInForm: React.FunctionComponent = (): React.ReactNode => {
 				<Button
 					type='submit'
 					className='w-full'
-					disabled={form.formState.isSubmitting || isSubmitting}>
-					{isSubmitting ? (
-						<>
+					disabled={form.formState.isSubmitting}>
+					{form.formState.isSubmitting ? (
+						<Fragment>
 							<Loader2 className='mr-2 h-4 w-4 animate-spin' />
 							Submitting...
-						</>
+						</Fragment>
 					) : (
-						'Submit'
+						<Fragment>Submit</Fragment>
 					)}
 				</Button>
 				<Separator />
 				<Link
-					href={APP_ROUTES.AUTH.SIGNUP}
+					href={APP_ROUTES.AUTH.SIGN_UP}
 					className={`w-full ${buttonVariants({
 						variant: 'secondary',
 					})}`}>

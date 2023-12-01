@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 
 import { buttonVariants } from '@/components/ui/button';
-import { APP_ROUTES } from '@/routes/app';
+import { APP_ROUTES } from '@/routes/APP';
 
 const ActionButton: React.FunctionComponent = (): React.ReactNode => {
 	const { data: session } = useSession();
@@ -13,7 +13,7 @@ const ActionButton: React.FunctionComponent = (): React.ReactNode => {
 	if (!session) {
 		return (
 			<Link
-				href={APP_ROUTES.AUTH.SIGNIN}
+				href={APP_ROUTES.AUTH.SIGN_IN}
 				className={`${buttonVariants({ variant: 'default' })}`}>
 				<LogIn className='mr-2 h-4 w-4' />
 				Sign In

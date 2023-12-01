@@ -1,11 +1,11 @@
 import { type Metadata, type NextPage } from 'next/types';
 import React, { Fragment } from 'react';
 
-import ThemeCard from '@/components/Settings/ThemeCard';
+import ThemeCard from '@/components/SettingsPage/ThemeCard';
 import { BackButton } from '@/components/shared/BackButton';
 import { Title } from '@/components/shared/Title';
 import { Separator } from '@/components/ui/separator';
-import { APP_ROUTES } from '@/routes/app';
+import { APP_ROUTES } from '@/routes/APP';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Appearance Settings',
@@ -35,7 +35,7 @@ const SettingsAppearancePage: NextPage = (): React.ReactNode => {
 						'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXN1biI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNCIvPjxwYXRoIGQ9Ik0xMiAydjIiLz48cGF0aCBkPSJNMTIgMjB2MiIvPjxwYXRoIGQ9Im00LjkzIDQuOTMgMS40MSAxLjQxIi8+PHBhdGggZD0ibTE3LjY2IDE3LjY2IDEuNDEgMS40MSIvPjxwYXRoIGQ9Ik0yIDEyaDIiLz48cGF0aCBkPSJNMjAgMTJoMiIvPjxwYXRoIGQ9Im02LjM0IDE3LjY2LTEuNDEgMS40MSIvPjxwYXRoIGQ9Im0xOS4wNyA0LjkzLTEuNDEgMS40MSIvPjwvc3ZnPg=='
 					}
 					label='Light theme'
-					image={'/assets/images/light-theme.png'}
+					image={'/assets/images/theme/light-theme.svg'}
 					alt={'Light Theme'}
 				/>
 				<ThemeCard
@@ -44,7 +44,7 @@ const SettingsAppearancePage: NextPage = (): React.ReactNode => {
 						'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1vb24iPjxwYXRoIGQ9Ik0xMiAzYTYgNiAwIDAgMCA5IDkgOSA5IDAgMSAxLTktOVoiLz48L3N2Zz4='
 					}
 					label='Dark theme'
-					image={'/assets/images/dark-theme.png'}
+					image={'/assets/images/theme/dark-theme.svg'}
 					alt={'Dark Theme'}
 				/>
 			</div>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { type Metadata, type NextPage } from 'next/types';
 import { Fragment } from 'react';
 
@@ -17,6 +18,7 @@ const HomePage: NextPage = (): React.ReactNode => {
 				</div>
 				<Separator />
 			</div>
+			<Link href='/testing'>TESTING</Link>
 		</Fragment>
 	);
 };

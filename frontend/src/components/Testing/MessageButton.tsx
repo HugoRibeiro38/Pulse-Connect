@@ -2,7 +2,7 @@ import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 
 import { buttonVariants } from '@/components/ui/button';
-import { APP_ROUTES } from '@/routes/app';
+import { APP_ROUTES } from '@/routes/APP';
 
 type MessageButtonProps = {
 	userId: string;

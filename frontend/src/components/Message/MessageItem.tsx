@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { APP_ROUTES } from '@/routes/app';
+import { APP_ROUTES } from '@/routes/APP';
+import { formatTimestamp } from '@/utils/format-timestamp';
 import { getInitials } from '@/utils/get-initials';
 import { typeOfMessage } from '@/utils/message-type';
-import { formatTimestamp } from '@/utils/format-timestamp';
 
 type MessageItemProps = {
 	id: string;

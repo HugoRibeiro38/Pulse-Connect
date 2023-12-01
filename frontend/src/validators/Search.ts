@@ -1,18 +1,15 @@
 import { z } from 'zod';
 
-const noLessThanMessage = (type: string, number: number) =>
-	`${type} must be at least ${number} characters long.`;
-const noMoreThanMessage = (type: string, number: number) =>
-	`${type} cannot be longer than ${number} characters.`;
+import {
+	firstNameConstraints,
+	lastNameConstraints,
+	usernameConstraints,
+} from './general';
 
-const queryConstraints = () =>
-	z
-		.string()
-		.min(3, { message: noLessThanMessage('Username', 3) })
-		.max(16, { message: noMoreThanMessage('Username', 16) });
-
-export const searchSchema = z.object({
-	query: queryConstraints(),
+export const SearchUserSchema = z.object({
+	query: usernameConstraints()
+		.or(firstNameConstraints())
+		.or(lastNameConstraints()),
 });
 
-export type ISearch = z.infer<typeof searchSchema>;
+export type SearchUser = z.infer<typeof SearchUserSchema>;

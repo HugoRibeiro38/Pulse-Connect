@@ -9,29 +9,20 @@ import { Fragment } from 'react';
 import {
 	ConnectionsView,
 	PendingConnectionsView,
-} from '@/components/Connections/';
+} from '@/components/ConnectionsPage';
 import { BackButton } from '@/components/shared/BackButton';
 import { Title } from '@/components/shared/Title';
-import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { KEYS } from '@/hooks/useConnections';
-import { APP_ROUTES } from '@/routes/app';
+import { APP_ROUTES } from '@/routes/APP';
 import { getConnections, getPendingConnections } from '@/services/Connections';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect - Connections',
 };
 
-type SearchParamsProps = {
-	sort?: 'name' | 'time';
-	order?: 'asc' | 'desc';
-};
-
-type ConnectionsPageProps = {
-	searchParams?: SearchParamsProps;
-};
-
-const ConnectionsPage: NextPage<ConnectionsPageProps> = async () => {
+const ConnectionsPage: NextPage = async () => {
 	const queryClient = new QueryClient();
 	await Promise.all([
 		queryClient.prefetchQuery({
@@ -46,18 +37,12 @@ const ConnectionsPage: NextPage<ConnectionsPageProps> = async () => {
 
 	return (
 		<Fragment>
-			<div className='flex w-full flex-col items-start justify-between md:flex-row md:items-center'>
+			<div className='flex w-full flex-col items-start justify-between gap-y-4'>
 				<div className='flex flex-row items-center justify-between gap-x-4'>
 					<BackButton url={APP_ROUTES.HOME} />
 					<Title title='Connections' />
 				</div>
-				<div className='div flex flex-row items-center justify-between gap-x-2'>
-					<Input
-						type='text'
-						placeholder='Search...'
-						className='w-full'
-					/>
-				</div>
+				<Separator />
 			</div>
 			<Tabs defaultValue='connections' className='flex w-full flex-col'>
 				<TabsList>
