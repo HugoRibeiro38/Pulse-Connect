@@ -7,6 +7,7 @@ import {
 	deletePendingConnection,
 	getConnections,
 	getPendingConnections,
+	verifyIsUserConnection,
 } from '@/services/Connections';
 import { type Connection, type Connections } from '@/types/Connection';
 import { type User } from '@/types/Users';
@@ -100,6 +101,13 @@ export const useDeleteConnection = () => {
 				description: 'The connection has been disconnect.',
 			});
 		},
+	});
+};
+
+export const useVerifyIsUserConnection = (id: string) => {
+	return useQuery<Connection>({
+		queryKey: ['usersConnection', id],
+		queryFn: () => verifyIsUserConnection(id),
 	});
 };
 
