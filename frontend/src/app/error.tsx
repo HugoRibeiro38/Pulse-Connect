@@ -1,10 +1,11 @@
 'use client';
 
-import { AlertCircle, ArrowLeft, Link } from 'lucide-react';
+import { AlertCircle, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { APP_ROUTES } from '@/routes/app';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { APP_ROUTES } from '@/routes/APP';
 
 type GlobalErrorProps = {
 	error: Error & { digest?: string };
@@ -24,17 +25,18 @@ const GlobalError: React.FunctionComponent<GlobalErrorProps> = ({
 					{error.message ?? 'An unexpected error has occurred.'}
 				</AlertDescription>
 				<div className='mt-4 flex w-full flex-row gap-x-2'>
+					<Link
+						href={APP_ROUTES.HOME}
+						className={`w-full ${buttonVariants({
+							variant: 'outline',
+						})}`}>
+						<ArrowLeft className='mr-2 h-4 w-4' />
+						Go back
+					</Link>
 					<Button
-						variant='outline'
-						size='icon'
+						variant='destructive'
 						className='w-full'
-						onClick={reset}
-						asChild>
-						<Link href={APP_ROUTES.HOME}>
-							<ArrowLeft className='mr-2 h-4 w-4' /> Go back
-						</Link>
-					</Button>
-					<Button variant='destructive' className='w-full'>
+						onClick={reset}>
 						Try Again
 					</Button>
 				</div>

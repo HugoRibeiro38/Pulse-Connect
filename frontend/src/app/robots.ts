@@ -1,5 +1,7 @@
 import { type MetadataRoute } from 'next';
 
+import { URL } from '@/data/constants';
+
 const robots = (): MetadataRoute.Robots => {
 	return {
 		rules: {
@@ -7,7 +9,7 @@ const robots = (): MetadataRoute.Robots => {
 			allow: '/',
 			disallow: '/private/',
 		},
-		sitemap: 'https://pulse-connect-lyart.vercel.app/sitemap.xml',
+		sitemap: URL,
 	};
 };
 

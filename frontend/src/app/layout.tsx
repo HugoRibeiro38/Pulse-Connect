@@ -6,6 +6,7 @@ import { type Metadata } from 'next';
 
 import { Providers } from '@/components/Providers';
 import { Toaster } from '@/components/ui/toaster';
+import { URL } from '@/data/constants';
 
 export const metadata: Metadata = {
 	title: 'Pulse Connect',
@@ -56,11 +57,11 @@ export const metadata: Metadata = {
 		title: 'Pulse Connect',
 		description:
 			'This is an evaluation project of the LDS curricular unit.',
-		url: 'https://pulse-connect-lyart.vercel.app/',
+		url: URL,
 		siteName: 'Pulse Connect',
 		images: [
 			{
-				url: 'https://pulse-connect-lyart.vercel.app/og-image.png',
+				url: `${URL}/og-image.png`,
 				width: 1200,
 				height: 630,
 				alt: 'Pulse Connect',
@@ -77,7 +78,7 @@ export const metadata: Metadata = {
 		creator: '@pulseconnect',
 		images: [
 			{
-				url: 'https://pulse-connect-lyart.vercel.app/twitter-image.png',
+				url: `${URL}/twitter-image.png`,
 				width: 1200,
 				height: 630,
 				alt: 'Pulse Connect',
