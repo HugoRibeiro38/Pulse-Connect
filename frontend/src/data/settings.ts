@@ -5,8 +5,6 @@ import {
 	Cookie,
 	HeartCrack,
 	HeartHandshake,
-	HelpCircle,
-	Info,
 	KeyRound,
 	Languages,
 	LogOut,
@@ -15,7 +13,7 @@ import {
 	User,
 } from 'lucide-react';
 
-import { APP_ROUTES } from '@/routes/app';
+import { APP_ROUTES } from '@/routes/APP';
 
 export type SettingsItemProps = {
 	url: string;
@@ -81,18 +79,6 @@ export const settingsItems: SettingsItemsProps = {
 	],
 	Others: [
 		{
-			url: APP_ROUTES.ABOUT,
-			title: 'About Us',
-			text: 'Learn more about our mission, vision, and the team behind the application.',
-			icon: Info,
-		},
-		{
-			url: APP_ROUTES.HELP,
-			title: 'Help & Support',
-			text: 'Get assistance and support for any issues or inquiries you may have.',
-			icon: HelpCircle,
-		},
-		{
 			url: APP_ROUTES.TERMS,
 			title: 'Terms & Conditions',
 			text: 'Read and understand the terms and conditions governing the use of the application.',
@@ -105,7 +91,7 @@ export const settingsItems: SettingsItemsProps = {
 			icon: Cookie,
 		},
 		{
-			url: APP_ROUTES.AUTH.SIGNOUT,
+			url: APP_ROUTES.AUTH.SIGN_OUT,
 			title: 'Sign Out',
 			text: 'Securely sign out of your account to protect your privacy.',
 			icon: LogOut,
