@@ -4,6 +4,9 @@ using PulseConnect.Services;
 using PulseConnect.Settings;
 using PulseConnect.Middleware;
 using System.Security.Cryptography;
+using JsonApiDotNetCore.Configuration;
+using Microsoft.AspNetCore.Builder;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +36,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// JsonApiDotNetCore
+builder.Services.AddJsonApi<APIDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,7 +50,6 @@ if (app.Environment.IsDevelopment())
 DataBaseManagementService.MigrationInitialisation(app);
 
 app.UseHttpsRedirection();
-
 
 // Uso Middleware Desenvolvido
 app.UseMiddleware<AuthenticationMiddleware>();
@@ -58,5 +63,6 @@ app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UsePathBase("/api/v1");
 
 app.Run();
