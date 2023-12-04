@@ -24,12 +24,16 @@ namespace PulseConnect.Models
         [Column("id_user_1")]
         [Required]
         //[ForeignKey("ID_User_1")]
+#pragma warning disable CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
         public String ID_User_1 { get; set; }
+#pragma warning restore CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
 
         [Column("id_user_2")]
         [Required]
         //[ForeignKey("ID_User_2")]
+#pragma warning disable CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
         public String ID_User_2 { get; set; }
+#pragma warning restore CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
 
         [Column("connection_date")]
         [Required]

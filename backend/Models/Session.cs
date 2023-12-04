@@ -16,20 +16,26 @@ namespace PulseConnect.Models
         /// </summary>
         [Key]
         [Column("Session ID")]
+#pragma warning disable CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
         public string SessionID { get; set; }
+#pragma warning restore CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
 
         /// <summary>
         /// Gets or sets the user ID associated with the session.
         /// </summary>
         [Required (ErrorMessage ="User ID is required")]
         [Column("User ID")]
+#pragma warning disable CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
         public string UserID { get; set; }
+#pragma warning restore CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
 
         /// <summary>
         /// Gets or sets the reference to the user associated with the session.
         /// </summary>
         [ForeignKey("UserID")]
+#pragma warning disable CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
         public virtual Users User { get; set; }
+#pragma warning restore CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
 
         /// <summary>
         /// Gets or sets the start time of the session.
