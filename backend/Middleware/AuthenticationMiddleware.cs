@@ -1,51 +1,56 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using PulseConnect.Models;
 
 namespace PulseConnect.Middleware
 {
-    public class AuthenticationMiddleware
+    public class AuthenticationMiddleware : IMiddleware
     {
-        private string keyFilePath = "Config/secretkey.json";
-
-        private readonly RequestDelegate _next;
         private readonly SignInManager<Users> _signInManager;
         private readonly UserManager<Users> _userManager;
+        private readonly IConfiguration _configuration;
 
-        public AuthenticationMiddleware(RequestDelegate next, SignInManager<Users> signInManager, UserManager<Users> userManager)
+        public AuthenticationMiddleware(SignInManager<Users> signInManager, UserManager<Users> userManager, IConfiguration configuration)
         {
-            _next = next;
             _signInManager = signInManager;
             _userManager = userManager;
+            _configuration = configuration;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            //case-insensitive por padrão, ou seja, ao tentar aceder account ele reconhece que é do controller Account 
             if (context.Request.Path == "/api/account/login" && context.Request.Method == "POST")
             {
                 await HandleLoginAsync(context);
             }
-            //case-insensitive por padrão, ou seja, ao tentar aceder account ele reconhece que é do controller Account 
             else if (context.Request.Path == "/api/account/register" && context.Request.Method == "POST")
             {
                 await HandleRegisterAsync(context);
             }
             else
             {
+#pragma warning disable CS8602 // Desreferência de uma referência possivelmente nula.
                 if (await IsTokenValidAsync(context) && context.User.Identity.IsAuthenticated)
                 {
-                    await _next(context);
+                    context.Response.StatusCode = 200;
+                    await context.Response.WriteAsync("Authenticated successfully.");
                     return;
                 }
+#pragma warning restore CS8602 // Desreferência de uma referência possivelmente nula.
 
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("Invalid Token or User not Found.");
             }
+
+            await next(context);
         }
 
         public string GenerateToken(Users user)
@@ -57,9 +62,9 @@ namespace PulseConnect.Middleware
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.UserName), // Cria uma variável name que vai guardar o username autenticado
+                    new Claim(ClaimTypes.Name, user.UserName),
                 }),
-                Expires = DateTime.UtcNow.AddHours(1), // Expira em uma hora o token
+                Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -67,64 +72,57 @@ namespace PulseConnect.Middleware
             return tokenHandler.WriteToken(token);
         }
 
-
         private async Task HandleLoginAsync(HttpContext context)
         {
             var username = context.Request.Form["username"];
             var password = context.Request.Form["password"];
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
             var user = await _userManager.FindByNameAsync(username);
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
             if (user != null)
             {
+#pragma warning disable CS8604 // Possível argumento de referência nula.
                 var result = await _signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
                 if (result.Succeeded)
                 {
-                    context.Response.StatusCode = 200; 
-                    await context.Response.WriteAsync("Autenticação bem-sucedida.");
+                    context.Response.StatusCode = 200;
+                    await context.Response.WriteAsync("Authenticated successfully.");
                     return;
                 }
             }
 
-            
-            context.Response.StatusCode = 401; 
-            await context.Response.WriteAsync("Falha na autenticação.");
+            context.Response.StatusCode = 401;
+            await context.Response.WriteAsync("Authentication failed.");
         }
 
-
-        /// <summary>
-        /// Handler for register function
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns>a response, 200 if all its ok or 400 for fail </returns>
         private async Task HandleRegisterAsync(HttpContext context)
         {
             var username = context.Request.Form["username"];
             var password = context.Request.Form["password"];
 
+#pragma warning disable CS8601 // Possível atribuição de referência nula.
             var user = new Users { UserName = username };
+#pragma warning restore CS8601 // Possível atribuição de referência nula.
 
+#pragma warning disable CS8604 // Possível argumento de referência nula.
             var result = await _userManager.CreateAsync(user, password);
+#pragma warning restore CS8604 // Possível argumento de referência nula.
 
             if (result.Succeeded)
             {
-                // Registro bem-sucedido
-                context.Response.StatusCode = 200; // OK
-                await context.Response.WriteAsync("Registro bem-sucedido.");
+                context.Response.StatusCode = 200;
+                await context.Response.WriteAsync("Registration successful.");
                 return;
             }
 
-            // Tratamento para falha no registro
-            context.Response.StatusCode = 400; // Bad Request
-            await context.Response.WriteAsync("Falha no registro.");
+            context.Response.StatusCode = 400;
+            await context.Response.WriteAsync("Registration failed.");
         }
 
-        /// <summary>
-        /// Function to validate token received from header from frontend
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
         private async Task<bool> IsTokenValidAsync(HttpContext context)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
@@ -139,12 +137,9 @@ namespace PulseConnect.Middleware
             return false;
         }
 
-        /// <summary>
-        /// Function to validate token async
-        /// </summary>
-        /// <param name="token"> Token</param>
-        /// <returns></returns>
+#pragma warning disable CS1998 // O método assíncrono não possui operadores 'await' e será executado de forma síncrona
         private async Task<bool> ValidateTokenAsync(string token)
+#pragma warning restore CS1998 // O método assíncrono não possui operadores 'await' e será executado de forma síncrona
         {
             try
             {
@@ -154,19 +149,18 @@ namespace PulseConnect.Middleware
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false, 
-                    ValidateAudience = false, 
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                     ValidateLifetime = true
                 };
 
                 SecurityToken validatedToken;
                 var principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
 
-                return true; // O token é válido
+                return true;
             }
             catch (Exception)
             {
-                // Em caso de falha na validação do token
                 return false;
             }
         }
@@ -175,17 +169,21 @@ namespace PulseConnect.Middleware
         {
             try
             {
-                var json = System.IO.File.ReadAllText(keyFilePath);
+#pragma warning disable CS8604 // Possível argumento de referência nula.
+                var json = System.IO.File.ReadAllText(_configuration["SecretKeyPath"]);
+#pragma warning restore CS8604 // Possível argumento de referência nula.
                 var keyObject = JsonConvert.DeserializeAnonymousType(json, new { Secret = "" });
 
+#pragma warning disable CS8602 // Desreferência de uma referência possivelmente nula.
                 return Encoding.ASCII.GetBytes(keyObject.Secret);
+#pragma warning restore CS8602 // Desreferência de uma referência possivelmente nula.
             }
             catch (Exception)
             {
+#pragma warning disable CS8603 // Possível retorno de referência nula.
                 return null;
+#pragma warning restore CS8603 // Possível retorno de referência nula.
             }
         }
-
-
     }
 }

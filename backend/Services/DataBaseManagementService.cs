@@ -15,7 +15,9 @@ namespace PulseConnect.Services
                 var serviceDB = serviceScope.ServiceProvider
                     .GetService<APIDbContext>();
 
+#pragma warning disable CS8602 // Desreferência de uma referência possivelmente nula.
                 serviceDB.Database.Migrate();
+#pragma warning restore CS8602 // Desreferência de uma referência possivelmente nula.
             }
 
         }
