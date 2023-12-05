@@ -16,6 +16,7 @@ namespace PulseConnect.Controllers
             _context = usersContext;
         }
 
+
         // GET: api/users
         [HttpGet]
         public async Task<IActionResult> GetUsers()
@@ -26,6 +27,28 @@ namespace PulseConnect.Controllers
 
             return Ok(users);
         }
+
+        // GET: api/users/filter/{searchString}
+        [HttpGet("filter/{searchString}")]
+        public async Task<IActionResult> GetUsers(string searchString)
+        {
+            var usersQuery = _context.Users.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                usersQuery = usersQuery.Where(user =>
+                    EF.Functions.Like(user.UserName, $"%{searchString}%") 
+                );
+            }
+
+            var users = await usersQuery
+                .Select(user => UserInfo(user))
+                .ToListAsync();
+
+            return Ok(users);
+        }
+
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)

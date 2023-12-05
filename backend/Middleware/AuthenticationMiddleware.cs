@@ -77,15 +77,14 @@ namespace PulseConnect.Middleware
             var username = context.Request.Form["username"];
             var password = context.Request.Form["password"];
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
+
             var user = await _userManager.FindByNameAsync(username);
-#pragma warning restore CS8604 // Possível argumento de referência nula.
+
 
             if (user != null)
             {
-#pragma warning disable CS8604 // Possível argumento de referência nula.
                 var result = await _signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
-#pragma warning restore CS8604 // Possível argumento de referência nula.
+
 
                 if (result.Succeeded)
                 {
@@ -104,13 +103,12 @@ namespace PulseConnect.Middleware
             var username = context.Request.Form["username"];
             var password = context.Request.Form["password"];
 
-#pragma warning disable CS8601 // Possível atribuição de referência nula.
-            var user = new Users { UserName = username };
-#pragma warning restore CS8601 // Possível atribuição de referência nula.
 
-#pragma warning disable CS8604 // Possível argumento de referência nula.
+            var user = new Users { UserName = username };
+
+
             var result = await _userManager.CreateAsync(user, password);
-#pragma warning restore CS8604 // Possível argumento de referência nula.
+
 
             if (result.Succeeded)
             {
@@ -137,9 +135,7 @@ namespace PulseConnect.Middleware
             return false;
         }
 
-#pragma warning disable CS1998 // O método assíncrono não possui operadores 'await' e será executado de forma síncrona
         private async Task<bool> ValidateTokenAsync(string token)
-#pragma warning restore CS1998 // O método assíncrono não possui operadores 'await' e será executado de forma síncrona
         {
             try
             {
@@ -169,20 +165,20 @@ namespace PulseConnect.Middleware
         {
             try
             {
-#pragma warning disable CS8604 // Possível argumento de referência nula.
+
                 var json = System.IO.File.ReadAllText(_configuration["SecretKeyPath"]);
-#pragma warning restore CS8604 // Possível argumento de referência nula.
+
                 var keyObject = JsonConvert.DeserializeAnonymousType(json, new { Secret = "" });
 
-#pragma warning disable CS8602 // Desreferência de uma referência possivelmente nula.
+
                 return Encoding.ASCII.GetBytes(keyObject.Secret);
-#pragma warning restore CS8602 // Desreferência de uma referência possivelmente nula.
+
             }
             catch (Exception)
             {
-#pragma warning disable CS8603 // Possível retorno de referência nula.
+
                 return null;
-#pragma warning restore CS8603 // Possível retorno de referência nula.
+
             }
         }
     }
