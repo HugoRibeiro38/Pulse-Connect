@@ -79,7 +79,4 @@ namespace PulseConnect.Models
         PhoneNumber,
         Email
     }
-
-
-
 }
