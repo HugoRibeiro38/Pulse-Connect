@@ -6,13 +6,13 @@ namespace PulseConnect.Models
     [Table("ThirdPartyAccount")]
     public class ThirdPartyAccount
     {
-        [Key, Column("id"), Required]
+        [Key, Column("ThirdPartyAccountID"), Required]
         public int ThirdPartyAccountId { get; set; }
 
-        [Column("UserId"), Required]
+        [Column("UserID"), Required]
         public string UserId { get; set; }
 
-        [Column("AccountId"), Required]
+        [Column("AccountType"), Required]
         public string AccountType { get; set; }
     }
 }
