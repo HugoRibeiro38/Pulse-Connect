@@ -34,5 +34,8 @@ namespace PulseConnect.Data
         //ConnectionLog
         public DbSet<ConnectionLog> ConnectionLogs { get; set; }
 
+        //ThirdPartyAccount
+        public DbSet<ThirdPartyAccount> ThirdPartyAccounts { get; set; }
+
     }
 }
