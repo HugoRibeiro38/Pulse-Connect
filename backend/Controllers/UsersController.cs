@@ -30,7 +30,7 @@ namespace PulseConnect.Controllers
 
         // GET: api/users/filter/{searchString}
         [HttpGet("filter/{searchString}")]
-        public async Task<IActionResult> GetUsers(string searchString)
+        public async Task<IActionResult> GetUsersByUserName(string searchString)
         {
             var usersQuery = _context.Users.AsQueryable();
 
